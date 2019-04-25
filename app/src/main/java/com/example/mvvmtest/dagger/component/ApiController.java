@@ -4,11 +4,16 @@ import android.app.Application;
 
 import com.example.mvvmtest.dagger.module.AppModule;
 import com.example.mvvmtest.dagger.module.NetworkModule;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import java.net.URISyntaxException;
 
 
 public class ApiController extends Application {
 
-    private AppComponent appComponent;
+    private static AppComponent appComponent;
+    private static Socket socket;
 
     @Override
     public void onCreate() {
@@ -16,11 +21,12 @@ public class ApiController extends Application {
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .networkModule(new NetworkModule(""))
+                .networkModule(new NetworkModule("http://127.0.0.1:3000", "http://127.0.0.1:3000"))
                 .build();
+
     }
 
-    public AppComponent getAppComponent() {
+    public static AppComponent getAppComponent() {
         return appComponent;
     }
 }

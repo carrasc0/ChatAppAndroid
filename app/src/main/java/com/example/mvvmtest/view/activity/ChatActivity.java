@@ -1,7 +1,9 @@
 package com.example.mvvmtest.view.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,8 @@ import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
 import com.github.nkzawa.socketio.client.Socket;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -25,9 +29,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ChatActivity extends AppCompatActivity {
-
-    @Inject
-    protected Socket socket;
 
     private ChatViewModel chatViewModel;
     private ChatAdapter chatAdapter;
@@ -41,6 +42,9 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.sendEditText)
     protected EditText sendEditText;
 
+    @BindView(R.id.toolbar)
+    protected Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +52,37 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         ButterKnife.bind(this);
-        ((ApiController) getApplication()).getAppComponent().inject(this);
-        initAdapter();
+        ApiController.getAppComponent().inject(this);
         initViewModel();
+        initAdapter();
+        checkChatStatus();
 
     }
 
+    private void checkChatStatus() {
+        if (chatViewModel.isConnected()) {
+            toolbar.setSubtitle("Connected");
+        } else {
+            toolbar.setSubtitle("Connected");
+        }
+    }
+
     private void initAdapter() {
-        chatAdapter = new ChatAdapter(ChatActivity.this);
+        chatAdapter = new ChatAdapter(ChatActivity.this, chatViewModel.getMessages().getValue());
         recyclerView.setAdapter(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
     }
 
     private void initViewModel() {
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
-        chatViewModel.connect();
+        chatViewModel.init();
+        chatViewModel.getMessages().observe(this, new Observer<List<Message>>() {
+            @Override
+            public void onChanged(@Nullable List<Message> messages) {
+                chatAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     @OnClick(R.id.sendButton)

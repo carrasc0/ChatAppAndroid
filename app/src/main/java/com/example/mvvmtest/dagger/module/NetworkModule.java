@@ -1,5 +1,8 @@
 package com.example.mvvmtest.dagger.module;
 
+import com.example.mvvmtest.manager.Preferences;
+import com.example.mvvmtest.network.RetrofitCall;
+import com.example.mvvmtest.network.RetrofitInterface;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -15,6 +18,7 @@ import android.app.Application;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -23,17 +27,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    String baseUrl;
+    private String baseUrl, chatUrl;
 
-    public NetworkModule(String baseUrl) {
+    public NetworkModule(String baseUrl, String chatUrl) {
         this.baseUrl = baseUrl;
+        this.chatUrl = chatUrl;
     }
 
     @Provides
     @Singleton
     Socket provideSocket() {
         try {
-            return IO.socket(baseUrl);
+            return IO.socket(chatUrl);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -71,6 +76,19 @@ public class NetworkModule {
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    RetrofitCall provideRetrofitCall(RetrofitInterface retrofitInterface, Gson gson) {
+        return new RetrofitCall(retrofitInterface, gson);
+    }
+
+    @Provides
+    @Singleton
+    RetrofitInterface provideRetrofitInterface(Retrofit retrofit) {
+        RetrofitInterface vingServer = retrofit.create(RetrofitInterface.class);
+        return vingServer;
     }
 
 

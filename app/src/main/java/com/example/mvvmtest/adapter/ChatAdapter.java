@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.model.Message;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,9 +24,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Message> items;
     private Context context;
 
-    public ChatAdapter(Context context) {
+    public ChatAdapter(Context context, List<Message> items) {
         this.context = context;
-        this.items = new ArrayList<>();
+        this.items = items;
     }
 
     @Override
@@ -52,12 +50,29 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        switch (getItemViewType(position)) {
+            case TYPE_SENDER:
+                ((SenderVH) holder).bind(items.get(position));
+                break;
+            case TYPE_NICKNAME:
+                ((NicknameVH) holder).bind(items.get(position));
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void addItems(List<Message> messages) {
+        this.items.addAll(messages);
+        notifyDataSetChanged();
+    }
+
+    public void addMessage(Message message) {
+        items.add(message);
+        notifyDataSetChanged();
     }
 
     class SenderVH extends RecyclerView.ViewHolder {
@@ -69,6 +84,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
+        public void bind(Message message) {
+            tvSender.setText(message.getBody());
+        }
     }
 
     class NicknameVH extends RecyclerView.ViewHolder {
@@ -79,6 +98,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public NicknameVH(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(Message message) {
+            tvNickname.setText(message.getBody());
         }
     }
 
