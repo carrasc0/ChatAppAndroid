@@ -18,11 +18,8 @@ import com.example.mvvmtest.adapter.ChatAdapter;
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
-import com.github.nkzawa.socketio.client.Socket;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +60,7 @@ public class ChatActivity extends AppCompatActivity {
         if (chatViewModel.isConnected()) {
             toolbar.setSubtitle("Connected");
         } else {
-            toolbar.setSubtitle("Connected");
+            toolbar.setSubtitle("Disconnected");
         }
     }
 
@@ -80,6 +77,13 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Message> messages) {
                 chatAdapter.notifyDataSetChanged();
+            }
+        });
+        chatViewModel.getIsTyping().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isTyping) {
+                //todo crear logica para is typing
+
             }
         });
 

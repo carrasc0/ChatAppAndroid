@@ -10,9 +10,6 @@ public class Message {
     @SerializedName("created_at")
     private String created_at;
 
-    @SerializedName("date")
-    private String date;
-
     @SerializedName("sender")
     private int sender;
 
@@ -25,8 +22,14 @@ public class Message {
     @SerializedName("readed")
     private int readed;
 
-    @SerializedName("checked_delete")
-    private boolean checked_delete;
+    public Message() {
+    }
+
+    public Message(int sender, int nickname, String body) {
+        this.sender = sender;
+        this.nickname = nickname;
+        this.body = body;
+    }
 
     public boolean isSender(int id) {
         return 1 == id;
@@ -46,14 +49,6 @@ public class Message {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public int getSender() {
@@ -86,14 +81,6 @@ public class Message {
 
     public void setReaded(int readed) {
         this.readed = readed;
-    }
-
-    public boolean isChecked_delete() {
-        return checked_delete;
-    }
-
-    public void setChecked_delete(boolean checked_delete) {
-        this.checked_delete = checked_delete;
     }
 
 

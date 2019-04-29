@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.model.Message;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,6 +22,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_SENDER = 1;
     private final int TYPE_NICKNAME = 2;
+    private final int TYPE_TYPING = 3;
 
     private List<Message> items;
     private Context context;
@@ -31,7 +34,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position).isSender(1) ? TYPE_SENDER : TYPE_NICKNAME;
+        Message message = items.get(position);
+        if (message.getSender() == -1) {
+            return TYPE_TYPING;
+        } else {
+            return items.get(position).isSender(1) ? TYPE_SENDER : TYPE_NICKNAME;
+        }
     }
 
     @NonNull
@@ -41,9 +49,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == TYPE_SENDER) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_chat_sender, parent, false);
             return new SenderVH(view);
-        } else {
+        } else if (viewType == TYPE_NICKNAME) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_chat_nickname, parent, false);
             return new NicknameVH(view);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_typing, parent, false);
+            return new TypingVH(view);
         }
 
     }
@@ -102,6 +113,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bind(Message message) {
             tvNickname.setText(message.getBody());
+        }
+    }
+
+    class TypingVH extends RecyclerView.ViewHolder {
+
+        public TypingVH(@NonNull View itemView) {
+            super(itemView);
         }
     }
 
