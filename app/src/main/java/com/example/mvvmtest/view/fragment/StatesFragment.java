@@ -11,9 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.util.States;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,11 +30,17 @@ public class StatesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    @BindView(R.id.stateImageView)
+    protected ImageView stateImageview;
+
+    @BindView(R.id.stateTextView)
+    protected TextView stateTextView;
+
     public StatesFragment() {
         // Required empty public constructor
     }
 
-    public static StatesFragment getInstance(States states){
+    public static StatesFragment getInstance(States states) {
         return new StatesFragment();
     }
 
@@ -43,6 +54,7 @@ public class StatesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_states, container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 
