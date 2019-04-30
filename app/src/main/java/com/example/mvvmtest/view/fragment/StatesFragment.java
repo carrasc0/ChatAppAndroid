@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mvvmtest.R;
+import com.example.mvvmtest.util.States;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,11 +25,13 @@ public class StatesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
     public StatesFragment() {
         // Required empty public constructor
     }
 
+    public static StatesFragment getInstance(States states){
+        return new StatesFragment();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
