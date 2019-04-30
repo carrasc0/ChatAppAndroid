@@ -1,5 +1,7 @@
 package com.example.mvvmtest.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mvvmtest.dagger.component.ApiController;
@@ -54,7 +56,8 @@ public class ChatRepository {
 
         @Override
         public void onFailure(Call<OpenTalkResponse> call, Throwable t) {
-            Logger.e("Error get messages", t.getMessage());
+            //Logger.e("Error get messages", t.getMessage());
+            Log.e("GBC", t.getMessage() + "    " + t.toString());
         }
     };
 }

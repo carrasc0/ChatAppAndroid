@@ -21,12 +21,22 @@ public class ApiController extends Application {
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .networkModule(new NetworkModule("http://127.0.0.1:3000", "http://127.0.0.1:3000"))
+                .networkModule(new NetworkModule("http://127.0.0.1:3000"))
                 .build();
+
+        try {
+            socket = IO.socket("http://127.0.0.1:8000");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     public static AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    public static Socket getSocket(){
+        return socket;
     }
 }

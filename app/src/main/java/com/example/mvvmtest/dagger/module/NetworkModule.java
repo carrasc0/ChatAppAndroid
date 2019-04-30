@@ -1,12 +1,7 @@
 package com.example.mvvmtest.dagger.module;
 
-import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.network.RetrofitInterface;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
-
-import java.net.URISyntaxException;
 
 import javax.inject.Singleton;
 
@@ -27,21 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    private String baseUrl, chatUrl;
+    private String baseUrl;
 
-    public NetworkModule(String baseUrl, String chatUrl) {
+    public NetworkModule(String baseUrl) {
         this.baseUrl = baseUrl;
-        this.chatUrl = chatUrl;
-    }
-
-    @Provides
-    @Singleton
-    Socket provideSocket() {
-        try {
-            return IO.socket(chatUrl);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Provides
@@ -87,8 +71,8 @@ public class NetworkModule {
     @Provides
     @Singleton
     RetrofitInterface provideRetrofitInterface(Retrofit retrofit) {
-        RetrofitInterface vingServer = retrofit.create(RetrofitInterface.class);
-        return vingServer;
+        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        return retrofitInterface;
     }
 
 

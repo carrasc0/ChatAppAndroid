@@ -24,8 +24,7 @@ import javax.inject.Inject;
 
 public class ChatViewModel extends ViewModel {
 
-    @Inject
-    protected Socket socket;
+    private Socket socket;
 
     @Inject
     Preferences preferences;
@@ -40,15 +39,18 @@ public class ChatViewModel extends ViewModel {
     }
 
     public void init() {
+        socket = ApiController.getSocket();
+        connect();
+        suscribeSocketEvents();
+        mMessages = new MutableLiveData<>();
         if (mMessages != null && isTyping != null) {
             return;
         }
         chatRepository = new ChatRepository();
-        connect();
-        mMessages = chatRepository.getMessages();
+        //mMessages = chatRepository.getMessages();
         isTyping = new MutableLiveData<>();
         isTyping.postValue(false);
-        suscribeSocketEvents();
+
     }
 
 
