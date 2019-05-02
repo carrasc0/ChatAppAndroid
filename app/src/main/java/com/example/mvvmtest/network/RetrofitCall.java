@@ -11,12 +11,10 @@ import retrofit2.Callback;
 public class RetrofitCall {
 
     private RetrofitInterface retrofitInterface;
-    private Gson gson;
 
-    public RetrofitCall(RetrofitInterface retrofitInterface, Gson gson) {
+    public RetrofitCall(RetrofitInterface retrofitInterface) {
         ApiController.getAppComponent().inject(this);
         this.retrofitInterface = retrofitInterface;
-        this.gson = gson;
     }
 
     public void openTalk(int sender, int nickname, Callback<OpenTalkResponse> callback) {
