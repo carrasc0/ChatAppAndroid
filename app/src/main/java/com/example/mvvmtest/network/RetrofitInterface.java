@@ -5,10 +5,12 @@ import com.example.mvvmtest.model.Response.OpenTalkResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface RetrofitInterface {
 
+    @Headers("Content-Type: application/json")
     @POST("/openTalk")
     Call<OpenTalkResponse> openTalk(@Body OpenTalkRequest request);
 

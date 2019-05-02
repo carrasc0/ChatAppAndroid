@@ -16,10 +16,13 @@ import android.widget.EditText;
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.adapter.ChatAdapter;
 import com.example.mvvmtest.dagger.component.ApiController;
+import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +32,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private ChatViewModel chatViewModel;
     private ChatAdapter chatAdapter;
+
+    @Inject
+    protected Preferences sharedPreferences;
 
     @BindView(R.id.chatRecyclerView)
     protected RecyclerView recyclerView;
@@ -72,7 +78,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initViewModel() {
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
-        chatViewModel.init();
+        chatViewModel.init(2);
+        //todo pasar nickname por el Intent
         chatViewModel.getMessages().observe(this, new Observer<List<Message>>() {
             @Override
             public void onChanged(@Nullable List<Message> messages) {
@@ -91,11 +98,12 @@ public class ChatActivity extends AppCompatActivity {
 
     @OnClick(R.id.sendButton)
     protected void sendMessage() {
-        if (TextUtils.isEmpty(sendEditText.getText().toString().trim())) {
+        String text = sendEditText.getText().toString().trim();
+        if (TextUtils.isEmpty(text)) {
             return;
         }
+        chatViewModel.sendMessage(new Message(sharedPreferences.getIdUser(), 2 /*todo ver nickname here*/, text));
         sendEditText.setText("");
-        chatViewModel.sendMessage(new Message());
     }
 
 

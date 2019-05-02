@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mvvmtest.dagger.component.ApiController;
+import com.example.mvvmtest.manager.JsonManager;
 import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.repository.ChatRepository;
@@ -24,12 +25,14 @@ import javax.inject.Inject;
 
 public class ChatViewModel extends ViewModel {
 
-    private Socket socket;
+    @Inject
+    protected Socket socket;
 
     @Inject
-    Preferences preferences;
+    protected Preferences preferences;
 
-    ChatRepository chatRepository;
+    private ChatRepository chatRepository;
+    private int nickname;
 
     private MutableLiveData<List<Message>> mMessages;
     private MutableLiveData<Boolean> isTyping;
@@ -38,19 +41,14 @@ public class ChatViewModel extends ViewModel {
         ApiController.getAppComponent().inject(this);
     }
 
-    public void init() {
-        socket = ApiController.getSocket();
+    public void init(int nickname) {
+        this.nickname = nickname;
         connect();
         suscribeSocketEvents();
-        mMessages = new MutableLiveData<>();
-        if (mMessages != null && isTyping != null) {
-            return;
-        }
         chatRepository = new ChatRepository();
-        //mMessages = chatRepository.getMessages();
+        mMessages = chatRepository.getMessages();
         isTyping = new MutableLiveData<>();
         isTyping.postValue(false);
-
     }
 
 
@@ -123,7 +121,8 @@ public class ChatViewModel extends ViewModel {
     }
 
     public void sendMessage(Message message) {
-        socket.emit(Constant.SocketEvent.NEW_MESSAGE, message);
+        JSONObject object = JsonManager.createEmitSendMessage(message);
+        socket.emit(Constant.SocketFunctions.FUNCTION, object);
     }
 
     public void sendTyping(int sender, int nickname) {

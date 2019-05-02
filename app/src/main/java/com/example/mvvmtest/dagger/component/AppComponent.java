@@ -1,5 +1,6 @@
 package com.example.mvvmtest.dagger.component;
 
+import com.example.mvvmtest.adapter.ChatAdapter;
 import com.example.mvvmtest.dagger.module.AppModule;
 import com.example.mvvmtest.dagger.module.NetworkModule;
 import com.example.mvvmtest.manager.Preferences;
@@ -25,5 +26,9 @@ public interface AppComponent {
     void inject(RetrofitCall retrofitCall);
 
     void inject(ChatRepository chatRepository);
+
+    void inject(ChatAdapter chatAdapter);
+
+    void inject(ApiController apiController);
 
 }

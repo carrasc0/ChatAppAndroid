@@ -9,11 +9,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mvvmtest.R;
+import com.example.mvvmtest.dagger.component.ApiController;
+import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.model.Message;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +32,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Message> items;
     private Context context;
 
+    @Inject
+    Preferences sharedPreferences;
+
     public ChatAdapter(Context context, List<Message> items) {
+        ApiController.getAppComponent().inject(this);
         this.context = context;
         this.items = items;
     }
@@ -38,7 +47,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (message.getSender() == -1) {
             return TYPE_TYPING;
         } else {
-            return items.get(position).isSender(1) ? TYPE_SENDER : TYPE_NICKNAME;
+            return items.get(position).isSender(sharedPreferences.getIdUser()) ? TYPE_SENDER : TYPE_NICKNAME;
         }
     }
 
@@ -73,7 +82,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     public void addItems(List<Message> messages) {
@@ -86,13 +95,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    private class SenderVH extends RecyclerView.ViewHolder {
+    protected class SenderVH extends RecyclerView.ViewHolder {
 
         @BindView(R.id.textViewChatSender)
         protected TextView tvSender;
 
-        @BindView(R.id.circleImageViewChatSender)
-        protected CircularImageView circularImageView;
+        @BindView(R.id.checkedImageView)
+        protected ImageView circularImageView;
 
         private SenderVH(@NonNull View itemView) {
             super(itemView);
@@ -104,13 +113,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    private class NicknameVH extends RecyclerView.ViewHolder {
+    protected class NicknameVH extends RecyclerView.ViewHolder {
 
         @BindView(R.id.textViewChatNickname)
         protected TextView tvNickname;
 
-        @BindView(R.id.checkedImageView)
-        protected ImageView checkedImageView;
+        @BindView(R.id.circleImageViewChatSender)
+        protected CircularImageView checkedImageView;
 
         private NicknameVH(@NonNull View itemView) {
             super(itemView);

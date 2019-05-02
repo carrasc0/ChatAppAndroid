@@ -31,8 +31,10 @@ public class Message {
         this.body = body;
     }
 
+
+
     public boolean isSender(int id) {
-        return 1 == id;
+        return this.sender == id;
     }
 
     public int getId_message() {

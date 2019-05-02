@@ -1,8 +1,10 @@
 package com.example.mvvmtest.dagger.module;
 
+import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.network.RetrofitInterface;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -10,9 +12,13 @@ import dagger.Provides;
 
 import android.app.Application;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.net.URISyntaxException;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -22,10 +28,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    private String baseUrl;
+    private String apiUrl, chatUrl;
 
-    public NetworkModule(String baseUrl) {
-        this.baseUrl = baseUrl;
+    public NetworkModule(String apiUrl, String chatUrl/*,  int userId*/) {
+        this.apiUrl = apiUrl;
+        this.chatUrl = chatUrl;
+    }
+
+    @Provides
+    @Singleton
+    Socket provideSocket(){
+        try {
+            IO.Options mOptions = new IO.Options();
+            mOptions.forceNew = true;
+            mOptions.query = "userID=" + 1;
+            return IO.socket(chatUrl, mOptions);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Provides
@@ -57,7 +77,7 @@ public class NetworkModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(baseUrl)
+                .baseUrl(apiUrl)
                 .client(okHttpClient)
                 .build();
     }
