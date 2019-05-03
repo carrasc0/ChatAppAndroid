@@ -26,6 +26,6 @@ public class Preferences {
     }
 
     public int getIdUser() {
-        return sharedPreferences.getInt(KEY_ID_USER, 1);
+        return sharedPreferences.getInt(KEY_ID_USER, 2);
     }
 }

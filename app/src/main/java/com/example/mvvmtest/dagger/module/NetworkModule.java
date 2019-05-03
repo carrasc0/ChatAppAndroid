@@ -2,14 +2,11 @@ package com.example.mvvmtest.dagger.module;
 
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.network.RetrofitInterface;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
-
 import android.app.Application;
-
+import com.example.mvvmtest.util.Constant;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.FieldNamingPolicy;
@@ -28,18 +25,18 @@ public class NetworkModule {
 
     private String apiUrl, chatUrl;
 
-    public NetworkModule(String apiUrl, String chatUrl/*,  int userId*/) {
+    public NetworkModule(String apiUrl, String chatUrl) {
         this.apiUrl = apiUrl;
         this.chatUrl = chatUrl;
     }
 
     @Provides
     @Singleton
-    Socket provideSocket(){
+    Socket provideSocket() {
         try {
             IO.Options mOptions = new IO.Options();
             mOptions.forceNew = true;
-            mOptions.query = "userID=" + 1;
+            mOptions.query = "userID=" + Constant.SENDER;
             return IO.socket(chatUrl, mOptions);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);

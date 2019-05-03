@@ -29,6 +29,6 @@ public interface AppComponent {
 
     void inject(ChatAdapter chatAdapter);
 
-    void inject(ApiController apiController);
+    void inject(AppModule appModule);
 
 }

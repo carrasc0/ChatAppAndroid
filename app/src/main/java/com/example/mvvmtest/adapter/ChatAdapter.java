@@ -14,6 +14,7 @@ import com.example.mvvmtest.R;
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.model.Message;
+import com.example.mvvmtest.util.Constant;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.List;
@@ -42,8 +43,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position).isSender(sharedPreferences.getIdUser()) ? TYPE_SENDER : TYPE_NICKNAME;
-
+        return items.get(position).isSender(Constant.SENDER) ? TYPE_SENDER : TYPE_NICKNAME;
     }
 
     @NonNull
@@ -85,15 +85,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void addMessage(Message message) {
         items.add(message);
         notifyDataSetChanged();
-    }
-
-    public void addTyping() {
-        items.add(new Message(-1, 1, ""));
-        notifyDataSetChanged();
-    }
-
-    public void removeTyping() {
-
     }
 
     protected class SenderVH extends RecyclerView.ViewHolder {
