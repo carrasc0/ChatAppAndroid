@@ -18,7 +18,9 @@ import com.example.mvvmtest.adapter.ChatAdapter;
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.model.Message;
+import com.example.mvvmtest.util.Constant;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
+import com.github.nkzawa.socketio.client.Socket;
 
 import java.util.List;
 
@@ -32,6 +34,10 @@ public class ChatActivity extends AppCompatActivity {
 
     private ChatViewModel chatViewModel;
     private ChatAdapter chatAdapter;
+    private int nickname;
+
+    @Inject
+    protected Socket socket;
 
     @Inject
     protected Preferences sharedPreferences;
@@ -56,14 +62,16 @@ public class ChatActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         ApiController.getAppComponent().inject(this);
+        nickname = getIntent().getIntExtra("nickname", Constant.NICKNAME);
         initViewModel();
+        initSocket();
         initAdapter();
         checkChatStatus();
 
     }
 
     private void checkChatStatus() {
-        if (chatViewModel.isConnected()) {
+        if (isConnected()) {
             toolbar.setSubtitle("Connected");
         } else {
             toolbar.setSubtitle("Disconnected");
@@ -78,8 +86,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initViewModel() {
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
-        chatViewModel.init(2);
-        //todo pasar nickname por el Intent
+        chatViewModel.init(nickname);
         chatViewModel.getMessages().observe(this, new Observer<List<Message>>() {
             @Override
             public void onChanged(@Nullable List<Message> messages) {
@@ -89,11 +96,20 @@ public class ChatActivity extends AppCompatActivity {
         chatViewModel.getIsTyping().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isTyping) {
-                //todo crear logica para is typing
-
+                if (isTyping) {
+                    toolbar.setSubtitle("Escribiendo...");
+                } else {
+                    checkChatStatus();
+                }
             }
         });
 
+    }
+
+    private void initSocket() {
+        socket.connect();
+        socket.on(Constant.SocketEvent.NEW_MESSAGE, chatViewModel.onNewMessage);
+        socket.on(Constant.SocketEvent.TYPING, chatViewModel.onTyping);
     }
 
     @OnClick(R.id.sendButton)
@@ -102,9 +118,22 @@ public class ChatActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(text)) {
             return;
         }
-        chatViewModel.sendMessage(new Message(sharedPreferences.getIdUser(), 2 /*todo ver nickname here*/, text));
+        chatViewModel.sendMessage(socket, new Message(Constant.SENDER, nickname, text));
         sendEditText.setText("");
     }
 
+    public boolean isConnected() {
+        return socket.connected();
+    }
+
+    private void connect() {
+        socket.connect();
+    }
+
+    private void disconnect() {
+        socket.off(Constant.SocketEvent.NEW_MESSAGE);
+        socket.off(Constant.SocketEvent.TYPING);
+        socket.disconnect();
+    }
 
 }

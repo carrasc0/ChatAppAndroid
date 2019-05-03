@@ -8,6 +8,7 @@ import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.model.Response.OpenTalkResponse;
 import com.example.mvvmtest.network.RetrofitCall;
+import com.example.mvvmtest.util.Constant;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -41,7 +42,7 @@ public class ChatRepository {
     }
 
     private void setMessages() {
-        retrofitCall.openTalk(1, 2, callback);
+        retrofitCall.getMessages(Constant.SENDER, Constant.NICKNAME, callback);
     }
 
     private Callback<OpenTalkResponse> callback = new Callback<OpenTalkResponse>() {

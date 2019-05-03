@@ -14,6 +14,7 @@ import com.example.mvvmtest.R;
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.model.Message;
+import com.example.mvvmtest.util.Constant;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.List;
@@ -27,7 +28,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_SENDER = 1;
     private final int TYPE_NICKNAME = 2;
-    private final int TYPE_TYPING = 3;
 
     private List<Message> items;
     private Context context;
@@ -43,12 +43,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        Message message = items.get(position);
-        if (message.getSender() == -1) {
-            return TYPE_TYPING;
-        } else {
-            return items.get(position).isSender(sharedPreferences.getIdUser()) ? TYPE_SENDER : TYPE_NICKNAME;
-        }
+        return items.get(position).isSender(Constant.SENDER) ? TYPE_SENDER : TYPE_NICKNAME;
     }
 
     @NonNull
@@ -58,12 +53,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == TYPE_SENDER) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_chat_sender, parent, false);
             return new SenderVH(view);
-        } else if (viewType == TYPE_NICKNAME) {
+        } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_chat_nickname, parent, false);
             return new NicknameVH(view);
-        } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_typing, parent, false);
-            return new TypingVH(view);
         }
 
     }
@@ -128,13 +120,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private void bind(Message message) {
             tvNickname.setText(message.getBody());
-        }
-    }
-
-    private class TypingVH extends RecyclerView.ViewHolder {
-
-        private TypingVH(@NonNull View itemView) {
-            super(itemView);
         }
     }
 

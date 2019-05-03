@@ -1,5 +1,7 @@
 package com.example.mvvmtest.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,12 +15,12 @@ import com.example.mvvmtest.util.Constant;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -26,12 +28,11 @@ import javax.inject.Inject;
 public class ChatViewModel extends ViewModel {
 
     @Inject
-    protected Socket socket;
-
-    @Inject
     protected Preferences preferences;
 
-    private ChatRepository chatRepository;
+    @Inject
+    protected ChatRepository chatRepository;
+
     private int nickname;
 
     private MutableLiveData<List<Message>> mMessages;
@@ -43,9 +44,6 @@ public class ChatViewModel extends ViewModel {
 
     public void init(int nickname) {
         this.nickname = nickname;
-        connect();
-        suscribeSocketEvents();
-        chatRepository = new ChatRepository();
         mMessages = chatRepository.getMessages();
         isTyping = new MutableLiveData<>();
         isTyping.postValue(false);
@@ -55,7 +53,6 @@ public class ChatViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        disconnect();
     }
 
     public LiveData<List<Message>> getMessages() {
@@ -66,21 +63,16 @@ public class ChatViewModel extends ViewModel {
         return isTyping;
     }
 
-    private void suscribeSocketEvents() {
-        if (socket != null && socket.connected()) {
-            socket.on(Constant.SocketEvent.NEW_MESSAGE, onNewMessage);
-            socket.on(Constant.SocketEvent.TYPING, onTyping);
-        }
-    }
-
-    private Emitter.Listener onNewMessage = new Emitter.Listener() {
+    public Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
+            Log.d("GBC", "Entro on new message");
+            Log.d("GBC", args[0].toString());
             processOnNewMessage((JSONObject) args[0]);
         }
     };
 
-    private Emitter.Listener onTyping = new Emitter.Listener() {
+    public Emitter.Listener onTyping = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
 
@@ -120,27 +112,13 @@ public class ChatViewModel extends ViewModel {
         }
     }
 
-    public void sendMessage(Message message) {
+    public void sendMessage(Socket socket, Message message) {
         JSONObject object = JsonManager.createEmitSendMessage(message);
         socket.emit(Constant.SocketFunctions.FUNCTION, object);
     }
 
-    public void sendTyping(int sender, int nickname) {
+    public void sendTyping(Socket socket, int sender, int nickname) {
         socket.emit(Constant.SocketEvent.TYPING, sender, nickname);
-    }
-
-    public boolean isConnected() {
-        return socket.connected();
-    }
-
-    private void connect() {
-        socket.connect();
-    }
-
-    private void disconnect() {
-        socket.off(Constant.SocketEvent.NEW_MESSAGE);
-        socket.off(Constant.SocketEvent.TYPING);
-        socket.disconnect();
     }
 
 

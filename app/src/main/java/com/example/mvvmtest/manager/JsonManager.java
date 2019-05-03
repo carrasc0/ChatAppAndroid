@@ -18,7 +18,7 @@ public class JsonManager {
             params.put("nickname", message.getNickname());
             params.put("body", message.getBody());
 
-            obj.put("fn", Constant.SocketFunctions.MESSAGE_SENDED);
+            obj.put(Constant.SocketFunctions.FN, Constant.SocketFunctions.MESSAGE_SENDED);
             obj.put("params", params);
 
             return obj;

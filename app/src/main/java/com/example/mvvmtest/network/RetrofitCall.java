@@ -17,7 +17,7 @@ public class RetrofitCall {
         this.retrofitInterface = retrofitInterface;
     }
 
-    public void openTalk(int sender, int nickname, Callback<OpenTalkResponse> callback) {
+    public void getMessages(int sender, int nickname, Callback<OpenTalkResponse> callback) {
         OpenTalkRequest openTalkRequest = new OpenTalkRequest(sender, nickname);
         Call<OpenTalkResponse> call = retrofitInterface.openTalk(openTalkRequest);
         call.enqueue(callback);

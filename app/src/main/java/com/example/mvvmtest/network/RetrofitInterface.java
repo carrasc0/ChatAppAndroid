@@ -11,7 +11,7 @@ import retrofit2.http.POST;
 public interface RetrofitInterface {
 
     @Headers("Content-Type: application/json")
-    @POST("/openTalk")
+    @POST("/getMessages")
     Call<OpenTalkResponse> openTalk(@Body OpenTalkRequest request);
 
 
