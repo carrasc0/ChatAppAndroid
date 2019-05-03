@@ -1,10 +1,8 @@
 package com.example.mvvmtest.dagger.module;
 
-import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.network.RetrofitInterface;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -84,8 +82,8 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    RetrofitCall provideRetrofitCall(RetrofitInterface retrofitInterface, Gson gson) {
-        return new RetrofitCall(retrofitInterface, gson);
+    RetrofitCall provideRetrofitCall(RetrofitInterface retrofitInterface) {
+        return new RetrofitCall(retrofitInterface);
     }
 
     @Provides

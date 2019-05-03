@@ -27,7 +27,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_SENDER = 1;
     private final int TYPE_NICKNAME = 2;
-    private final int TYPE_TYPING = 3;
 
     private List<Message> items;
     private Context context;
@@ -43,12 +42,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        Message message = items.get(position);
-        if (message.getSender() == -1) {
-            return TYPE_TYPING;
-        } else {
-            return items.get(position).isSender(sharedPreferences.getIdUser()) ? TYPE_SENDER : TYPE_NICKNAME;
-        }
+        return items.get(position).isSender(sharedPreferences.getIdUser()) ? TYPE_SENDER : TYPE_NICKNAME;
+
     }
 
     @NonNull
@@ -58,12 +53,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == TYPE_SENDER) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_chat_sender, parent, false);
             return new SenderVH(view);
-        } else if (viewType == TYPE_NICKNAME) {
+        } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_chat_nickname, parent, false);
             return new NicknameVH(view);
-        } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.design_typing, parent, false);
-            return new TypingVH(view);
         }
 
     }
@@ -93,6 +85,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void addMessage(Message message) {
         items.add(message);
         notifyDataSetChanged();
+    }
+
+    public void addTyping() {
+        items.add(new Message(-1, 1, ""));
+        notifyDataSetChanged();
+    }
+
+    public void removeTyping() {
+
     }
 
     protected class SenderVH extends RecyclerView.ViewHolder {
@@ -128,13 +129,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private void bind(Message message) {
             tvNickname.setText(message.getBody());
-        }
-    }
-
-    private class TypingVH extends RecyclerView.ViewHolder {
-
-        private TypingVH(@NonNull View itemView) {
-            super(itemView);
         }
     }
 

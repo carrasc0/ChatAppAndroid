@@ -24,7 +24,8 @@ public class ApiController extends Application {
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .networkModule(new NetworkModule("http://10.0.11.71:3000", "http://10.0.11.71:8000/chat"))
+                //.networkModule(new NetworkModule("http://10.0.11.71:3000", "http://10.0.11.71:8000/chat"))
+                .networkModule(new NetworkModule("http://192.168.1.5:3000", "http://192.168.1.5:8000/chat"))
                 .build();
 
     }
