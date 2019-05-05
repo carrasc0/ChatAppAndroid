@@ -1,7 +1,8 @@
 package com.example.mvvmtest.network;
 
-import com.example.mvvmtest.model.Request.OpenTalkRequest;
-import com.example.mvvmtest.model.Response.OpenTalkResponse;
+import com.example.mvvmtest.model.Request.GetMessagesRequest;
+import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
+import com.example.mvvmtest.model.Response.GetMessagesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,7 +13,11 @@ public interface RetrofitInterface {
 
     @Headers("Content-Type: application/json")
     @POST("/getMessages")
-    Call<OpenTalkResponse> openTalk(@Body OpenTalkRequest request);
+    Call<GetMessagesResponse> getMessages(@Body GetMessagesRequest request);
+
+    @Headers("Content-Type: application/json")
+    @POST("/getDiscoverUsers")
+    Call<DiscoverUsersResponse> getDiscoverUsers(@Body GetMessagesRequest request);
 
 
 }

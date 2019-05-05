@@ -18,7 +18,7 @@ public class JsonManager {
             params.put("nickname", message.getNickname());
             params.put("body", message.getBody());
 
-            obj.put(Constant.SocketFunctions.FN, Constant.SocketFunctions.MESSAGE_SENDED);
+            obj.put(Constant.SocketKey.FN_KEY, Constant.SocketEvent.NEW_MESSAGE);
             obj.put("params", params);
 
             return obj;
@@ -28,6 +28,19 @@ public class JsonManager {
 
         return obj;
 
+    }
+
+    public static Message processNewMessage(JSONObject data){
+        try {
+            int sender = data.getInt("sender");
+            int nickname = data.getInt("nickname");
+            String body = data.getString("body");
+
+            return new Message(sender,nickname,body);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

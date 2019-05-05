@@ -12,9 +12,7 @@ import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.net.URISyntaxException;
-
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

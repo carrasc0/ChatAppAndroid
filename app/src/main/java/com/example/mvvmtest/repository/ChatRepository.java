@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.model.Message;
-import com.example.mvvmtest.model.Response.OpenTalkResponse;
+import com.example.mvvmtest.model.Response.GetMessagesResponse;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.util.Constant;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class ChatRepository {
 
     @Inject
-    RetrofitCall retrofitCall;
+    protected RetrofitCall retrofitCall;
 
     private ArrayList<Message> dataSet = new ArrayList<>();
 
@@ -45,9 +45,9 @@ public class ChatRepository {
         retrofitCall.getMessages(Constant.SENDER, Constant.NICKNAME, callback);
     }
 
-    private Callback<OpenTalkResponse> callback = new Callback<OpenTalkResponse>() {
+    private Callback<GetMessagesResponse> callback = new Callback<GetMessagesResponse>() {
         @Override
-        public void onResponse(Call<OpenTalkResponse> call, Response<OpenTalkResponse> response) {
+        public void onResponse(Call<GetMessagesResponse> call, Response<GetMessagesResponse> response) {
             if (response.isSuccessful()) {
                 dataSet.addAll(response.body().getMessagess());
             } else {
@@ -56,7 +56,7 @@ public class ChatRepository {
         }
 
         @Override
-        public void onFailure(Call<OpenTalkResponse> call, Throwable t) {
+        public void onFailure(Call<GetMessagesResponse> call, Throwable t) {
             //Logger.e("Error get messages", t.getMessage());
             Log.e("GBC", t.getMessage() + "    " + t.toString());
         }

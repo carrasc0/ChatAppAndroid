@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class OpenTalkResponse extends BaseResponse {
+public class GetMessagesResponse extends BaseResponse {
 
     @SerializedName("messages")
     List<Message> messages;

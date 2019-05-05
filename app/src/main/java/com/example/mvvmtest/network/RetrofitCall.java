@@ -1,9 +1,9 @@
 package com.example.mvvmtest.network;
 
 import com.example.mvvmtest.dagger.component.ApiController;
-import com.example.mvvmtest.model.Request.OpenTalkRequest;
-import com.example.mvvmtest.model.Response.OpenTalkResponse;
-import com.google.gson.Gson;
+import com.example.mvvmtest.model.Request.GetMessagesRequest;
+import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
+import com.example.mvvmtest.model.Response.GetMessagesResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,9 +17,15 @@ public class RetrofitCall {
         this.retrofitInterface = retrofitInterface;
     }
 
-    public void getMessages(int sender, int nickname, Callback<OpenTalkResponse> callback) {
-        OpenTalkRequest openTalkRequest = new OpenTalkRequest(sender, nickname);
-        Call<OpenTalkResponse> call = retrofitInterface.openTalk(openTalkRequest);
+    public void getMessages(int sender, int nickname, Callback<GetMessagesResponse> callback) {
+        GetMessagesRequest getMessagesRequest = new GetMessagesRequest(sender, nickname);
+        Call<GetMessagesResponse> call = retrofitInterface.getMessages(getMessagesRequest);
+        call.enqueue(callback);
+    }
+
+    public void getDiscoverUsers(int sender, int nickname, Callback<DiscoverUsersResponse> callback) {
+        GetMessagesRequest getMessagesRequest = new GetMessagesRequest(sender, nickname);
+        Call<DiscoverUsersResponse> call = retrofitInterface.getDiscoverUsers(getMessagesRequest);
         call.enqueue(callback);
     }
 

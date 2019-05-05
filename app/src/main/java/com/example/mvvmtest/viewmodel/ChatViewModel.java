@@ -15,7 +15,6 @@ import com.example.mvvmtest.util.Constant;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,24 +79,20 @@ public class ChatViewModel extends ViewModel {
     };
 
     private void processOnNewMessage(JSONObject data) {
-        try {
-            int sender = data.getInt("sender");
-            int nickname = data.getInt("nickname");
-            String body = data.getString("body");
-
-            List<Message> list;
-            if (mMessages != null) {
-                list = mMessages.getValue();
-                list.add(new Message(sender, nickname, body));
-            } else {
-                list = new ArrayList<>();
-                list.add(new Message(sender, nickname, body));
-            }
-
-            mMessages.setValue(list);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        Message message = JsonManager.processNewMessage(data);
+        if (message == null){
+            return;
         }
+        List<Message> list;
+        if (mMessages != null) {
+            list = mMessages.getValue();
+            list.add(message);
+        } else {
+            list = new ArrayList<>();
+            list.add(message);
+        }
+
+        mMessages.setValue(list);
     }
 
     private void processOnTyping(JSONObject data) {
@@ -114,7 +109,7 @@ public class ChatViewModel extends ViewModel {
 
     public void sendMessage(Socket socket, Message message) {
         JSONObject object = JsonManager.createEmitSendMessage(message);
-        socket.emit(Constant.SocketFunctions.FUNCTION, object);
+        socket.emit(Constant.SocketKey.FUNCTION_KEY, object);
     }
 
     public void sendTyping(Socket socket, int sender, int nickname) {

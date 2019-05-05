@@ -12,11 +12,10 @@ public class Constant {
 
     }
 
-    public static final class SocketFunctions {
+    public static final class SocketKey {
 
-        public static final String MESSAGE_SENDED = "newMessage";
-        public static final String FUNCTION = "func";
-        public static final String FN = "fn";
+        public static final String FUNCTION_KEY = "func";
+        public static final String FN_KEY = "fn";
 
     }
 
