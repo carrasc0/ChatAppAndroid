@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.model.DiscoverUser;
-import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.repository.DiscoverRepository;
+import com.example.mvvmtest.util.DiscoverAction;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class DiscoverViewModel extends ViewModel {
     protected Preferences preferences;
 
     @Inject
-    protected DiscoverRepository discoverRepository;
+    DiscoverRepository discoverRepository;
 
     private MutableLiveData<List<DiscoverUser>> users;
 
@@ -39,6 +39,10 @@ public class DiscoverViewModel extends ViewModel {
 
     public LiveData<List<DiscoverUser>> getDiscoverUsers() {
         return users;
+    }
+
+    public void onUserAction(int idUser, DiscoverAction action) {
+        discoverRepository.userAction(idUser, action);
     }
 
 }

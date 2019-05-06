@@ -2,6 +2,7 @@ package com.example.mvvmtest.network;
 
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.model.Request.GetMessagesRequest;
+import com.example.mvvmtest.model.Response.BaseResponse;
 import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
 import com.example.mvvmtest.model.Response.GetMessagesResponse;
 
@@ -26,6 +27,11 @@ public class RetrofitCall {
     public void getDiscoverUsers(int sender, int nickname, Callback<DiscoverUsersResponse> callback) {
         GetMessagesRequest getMessagesRequest = new GetMessagesRequest(sender, nickname);
         Call<DiscoverUsersResponse> call = retrofitInterface.getDiscoverUsers(getMessagesRequest);
+        call.enqueue(callback);
+    }
+
+    public void userAction(Callback<BaseResponse> callback) {
+        Call<BaseResponse> call = retrofitInterface.userAction();
         call.enqueue(callback);
     }
 

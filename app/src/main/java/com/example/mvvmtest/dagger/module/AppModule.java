@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.repository.ChatRepository;
+import com.example.mvvmtest.repository.DiscoverRepository;
 
 import javax.inject.Singleton;
 
@@ -35,6 +36,12 @@ public class AppModule {
     @Singleton
     ChatRepository provideChatRepository(){
         return new ChatRepository();
+    }
+
+    @Provides
+    @Singleton
+    DiscoverRepository provideDiscoverRepository(){
+        return new DiscoverRepository();
     }
 
 }

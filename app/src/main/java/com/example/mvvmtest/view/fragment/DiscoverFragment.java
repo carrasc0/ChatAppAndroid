@@ -1,5 +1,6 @@
 package com.example.mvvmtest.view.fragment;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -16,7 +17,10 @@ import android.widget.FrameLayout;
 
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.dagger.component.ApiController;
+import com.example.mvvmtest.interfaces.OnUserViewDiscoverFragmentActionListener;
 import com.example.mvvmtest.model.DiscoverUser;
+import com.example.mvvmtest.util.DiscoverAction;
+import com.example.mvvmtest.util.StateFragment;
 import com.example.mvvmtest.viewmodel.DiscoverViewModel;
 
 import java.util.List;
@@ -24,10 +28,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DiscoverFragment extends Fragment {
+public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFragmentActionListener {
 
-    @BindView(R.id.stateContainer)
-    protected FrameLayout stateContainer;
     @BindView(R.id.discoverContainer)
     protected FrameLayout discoverContainer;
 
@@ -55,13 +57,13 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initStateFragment(StateFragment.LOADING);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
+        initViewModel();
     }
 
     private void initViewModel() {
@@ -70,9 +72,27 @@ public class DiscoverFragment extends Fragment {
         mViewModel.getDiscoverUsers().observe(this, new Observer<List<DiscoverUser>>() {
             @Override
             public void onChanged(List<DiscoverUser> discoverUsers) {
-                //todo nuevos usuarios llegaron, aplicar logica
+                initDiscoverFragment(discoverUsers.get(0));
             }
         });
     }
+
+    @Override
+    public void onUserAction(int idUser, DiscoverAction action) {
+        mViewModel.onUserAction(idUser, action);
+    }
+
+    private void initStateFragment(StateFragment state) {
+        Fragment stateFragment = StatesFragment.newInstance(state);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.discoverContainer, stateFragment);
+    }
+
+    private void initDiscoverFragment(DiscoverUser user) {
+        Fragment discoverFragment = UserViewDiscoverFragment.newInstance(user);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.discoverContainer, discoverFragment);
+    }
+
 
 }

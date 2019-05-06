@@ -1,6 +1,6 @@
 package com.example.mvvmtest.util;
 
-public enum States {
+public enum StateFragment {
     LOADING,
     EMPTY,
     ERROR

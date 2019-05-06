@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.model.DiscoverUser;
-import com.example.mvvmtest.model.Message;
+import com.example.mvvmtest.model.Response.BaseResponse;
 import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.util.Constant;
-import com.orhanobut.logger.AndroidLogAdapter;
+import com.example.mvvmtest.util.DiscoverAction;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -24,8 +24,10 @@ import retrofit2.Response;
 
 public class DiscoverRepository {
 
+    private int currentUserId;
+
     @Inject
-    protected RetrofitCall retrofitCall;
+    RetrofitCall retrofitCall;
 
     private ArrayList<DiscoverUser> dataSet = new ArrayList<>();
 
@@ -41,10 +43,15 @@ public class DiscoverRepository {
     }
 
     private void setDiscoverUsers() {
-        retrofitCall.getDiscoverUsers(Constant.SENDER, Constant.NICKNAME, callback);
+        retrofitCall.getDiscoverUsers(Constant.SENDER, Constant.NICKNAME, callbackGetMessages);
     }
 
-    private Callback<DiscoverUsersResponse> callback = new Callback<DiscoverUsersResponse>() {
+    public void userAction(int idUser, DiscoverAction action) {
+        currentUserId = idUser;
+        retrofitCall.userAction(callbackUserAction);
+    }
+
+    private Callback<DiscoverUsersResponse> callbackGetMessages = new Callback<DiscoverUsersResponse>() {
         @Override
         public void onResponse(Call<DiscoverUsersResponse> call, Response<DiscoverUsersResponse> response) {
             if (response.isSuccessful()) {
@@ -60,4 +67,26 @@ public class DiscoverRepository {
         }
     };
 
+    private Callback<BaseResponse> callbackUserAction = new Callback<BaseResponse>() {
+        @Override
+        public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+            if (response.isSuccessful()) {
+                processUserActionResponse();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<BaseResponse> call, Throwable t) {
+
+        }
+    };
+
+    private void processUserActionResponse() {
+        for (DiscoverUser user : dataSet) {
+            if (user.getIdUser() == currentUserId) {
+                dataSet.remove(user);
+                break;
+            }
+        }
+    }
 }

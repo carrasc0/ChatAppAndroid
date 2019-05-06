@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mvvmtest.R;
-import com.example.mvvmtest.util.States;
+import com.example.mvvmtest.util.StateFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +40,7 @@ public class StatesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static StatesFragment getInstance(States states) {
+    public static StatesFragment newInstance(StateFragment stateFragment) {
         return new StatesFragment();
     }
 

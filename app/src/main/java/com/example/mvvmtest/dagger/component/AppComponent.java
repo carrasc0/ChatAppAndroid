@@ -12,7 +12,6 @@ import com.example.mvvmtest.view.activity.ChatActivity;
 import com.example.mvvmtest.view.fragment.DiscoverFragment;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
 import com.example.mvvmtest.viewmodel.DiscoverViewModel;
-import com.example.mvvmtest.viewmodel.UserViewDiscoverViewModel;
 
 import javax.inject.Singleton;
 
@@ -27,9 +26,6 @@ public interface AppComponent {
     void inject(DiscoverFragment discoverFragment);
 
     void inject(ChatViewModel chatViewModel);
-
-    void inject(UserViewDiscoverViewModel
-                        userViewDiscoverViewModel);
 
     void inject(DiscoverViewModel
                         discoverViewModel);
