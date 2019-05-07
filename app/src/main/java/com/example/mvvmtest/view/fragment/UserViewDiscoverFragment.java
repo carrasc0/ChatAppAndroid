@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,7 @@ public class UserViewDiscoverFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = getArguments().getParcelable("user");
+        Log.d("GBC", user.toString());
     }
 
     @Override
@@ -109,25 +111,25 @@ public class UserViewDiscoverFragment extends Fragment {
     }
 
     private void processImages() {
-        List<String> images = user.getImages();
+        /*List<Integer> images = user.getImages();
         if (images == null) {
             return;
-        }
+        }*/
         //todo hacer logica para la cantidad de imagenes que bajaron
         //todo procesar zodiaco
         Glide.with(getContext())
                 .asBitmap()
-                .load(images.get(0))
+                .load(R.drawable.image1)
                 .into(image1);
 
         Glide.with(getContext())
                 .asBitmap()
-                .load(images.get(1))
+                .load(R.drawable.image2)
                 .into(image2);
 
         Glide.with(getContext())
                 .asBitmap()
-                .load(images.get(2))
+                .load(R.drawable.image3)
                 .into(image3);
     }
 
@@ -143,8 +145,18 @@ public class UserViewDiscoverFragment extends Fragment {
     }
 
     @OnClick(R.id.btnILoveIt)
-    void IloveItClicked(){
+    void IloveItClicked() {
         onActionListener.onUserAction(user.getIdUser(), DiscoverAction.I_LOVE_IT);
+    }
+
+    @OnClick(R.id.btnDislike)
+    void DislikeClicked() {
+        onActionListener.onUserAction(user.getIdUser(), DiscoverAction.DISLIKE);
+    }
+
+    @OnClick(R.id.btnlike)
+    void LikeClicked() {
+        onActionListener.onUserAction(user.getIdUser(), DiscoverAction.LIKE);
     }
 
 

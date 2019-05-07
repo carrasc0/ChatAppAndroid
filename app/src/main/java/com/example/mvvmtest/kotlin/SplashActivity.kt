@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mvvmtest.R
 import com.example.mvvmtest.view.activity.ChatActivity
+import com.example.mvvmtest.view.activity.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -12,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val intent = Intent (this, ChatActivity::class.java)
+        val intent = Intent (this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

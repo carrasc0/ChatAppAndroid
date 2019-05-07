@@ -20,7 +20,7 @@ public class DiscoverViewModel extends ViewModel {
     protected Preferences preferences;
 
     @Inject
-    DiscoverRepository discoverRepository;
+    protected DiscoverRepository discoverRepository;
 
     private MutableLiveData<List<DiscoverUser>> users;
 

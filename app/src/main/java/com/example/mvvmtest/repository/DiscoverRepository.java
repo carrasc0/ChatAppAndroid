@@ -11,6 +11,8 @@ import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.util.Constant;
 import com.example.mvvmtest.util.DiscoverAction;
+import com.example.mvvmtest.util.Vices;
+import com.example.mvvmtest.util.Zodiac;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -43,12 +45,15 @@ public class DiscoverRepository {
     }
 
     private void setDiscoverUsers() {
-        retrofitCall.getDiscoverUsers(Constant.SENDER, Constant.NICKNAME, callbackGetMessages);
+        //retrofitCall.getDiscoverUsers(Constant.SENDER, Constant.NICKNAME, callbackGetMessages);
+        dataSet.add(new DiscoverUser(null, 1, 27, Zodiac.LEO, "Sofia", "La Habana", "Software engineer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
+        dataSet.add(new DiscoverUser(null, 2, 30, Zodiac.LEO, "Plovdiv", "Matanzas", "Software developer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
     }
 
     public void userAction(int idUser, DiscoverAction action) {
         currentUserId = idUser;
-        retrofitCall.userAction(callbackUserAction);
+        //retrofitCall.userAction(callbackUserAction);
+        processUserActionResponse();
     }
 
     private Callback<DiscoverUsersResponse> callbackGetMessages = new Callback<DiscoverUsersResponse>() {

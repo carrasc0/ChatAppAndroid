@@ -3,16 +3,19 @@ package com.example.mvvmtest.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.example.mvvmtest.util.Vices;
 import com.example.mvvmtest.util.Zodiac;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverUser implements Parcelable {
 
     @SerializedName("images")
-    private List<String> images;
+    private List<Integer> images;
 
     @SerializedName("id_user")
     private int idUser;
@@ -44,7 +47,21 @@ public class DiscoverUser implements Parcelable {
     @SerializedName("smoke")
     private Vices smoke;
 
-    public List<String> getImages() {
+    public DiscoverUser(List<Integer> images, int idUser, int age, Zodiac zodiac, String city, String hometown, String profession, String job, String height, Vices drink, Vices smoke) {
+        this.images = images;
+        this.idUser = idUser;
+        this.age = age;
+        this.zodiac = zodiac;
+        this.city = city;
+        this.hometown = hometown;
+        this.profession = profession;
+        this.job = job;
+        this.height = height;
+        this.drink = drink;
+        this.smoke = smoke;
+    }
+
+    public List<Integer> getImages() {
         return images;
     }
 
@@ -96,7 +113,7 @@ public class DiscoverUser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringList(this.images);
+        dest.writeList(this.images);
         dest.writeInt(this.idUser);
         dest.writeInt(this.age);
         dest.writeInt(this.zodiac == null ? -1 : this.zodiac.ordinal());
@@ -113,7 +130,8 @@ public class DiscoverUser implements Parcelable {
     }
 
     protected DiscoverUser(Parcel in) {
-        this.images = in.createStringArrayList();
+        this.images = new ArrayList<Integer>();
+        in.readList(this.images, Integer.class.getClassLoader());
         this.idUser = in.readInt();
         this.age = in.readInt();
         int tmpZodiac = in.readInt();
@@ -140,4 +158,10 @@ public class DiscoverUser implements Parcelable {
             return new DiscoverUser[size];
         }
     };
+
+    @NonNull
+    @Override
+    public String toString() {
+        return idUser + age + city + hometown + "user data";
+    }
 }

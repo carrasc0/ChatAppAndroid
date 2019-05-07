@@ -17,7 +17,11 @@
         <activity
             android:name=".view.activity.MatchActivity"
             android:label="@string/title_activity_match"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:label="@string/title_activity_match"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".kotlin.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +30,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.ChatActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

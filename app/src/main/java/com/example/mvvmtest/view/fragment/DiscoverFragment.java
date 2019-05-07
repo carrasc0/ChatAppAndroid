@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initStateFragment(StateFragment.LOADING);
+        //initStateFragment(StateFragment.LOADING);
     }
 
     @Override
@@ -72,6 +73,7 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
         mViewModel.getDiscoverUsers().observe(this, new Observer<List<DiscoverUser>>() {
             @Override
             public void onChanged(List<DiscoverUser> discoverUsers) {
+                Log.d("GBC", "entro aqui initview model discover fragment");
                 initDiscoverFragment(discoverUsers.get(0));
             }
         });
@@ -92,6 +94,7 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
         Fragment discoverFragment = UserViewDiscoverFragment.newInstance(user);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.discoverContainer, discoverFragment);
+        transaction.commit();
     }
 
 
