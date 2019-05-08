@@ -1,5 +1,7 @@
 package com.example.mvvmtest.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -42,7 +44,17 @@ public class DiscoverViewModel extends ViewModel {
     }
 
     public void onUserAction(int idUser, DiscoverAction action) {
-        discoverRepository.userAction(idUser, action);
+        //discoverRepository.userAction(idUser, action);
+        //init();
+        List<DiscoverUser> list = users.getValue();
+        for (DiscoverUser user :list) {
+            if (user.getIdUser() == idUser) {
+                list.remove(user);
+                break;
+            }
+        }
+        users.setValue(list);
+        Log.d("GBC", "Quedan VM: " + users.getValue().size());
     }
 
 }

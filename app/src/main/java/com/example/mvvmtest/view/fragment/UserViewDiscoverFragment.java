@@ -151,6 +151,7 @@ public class UserViewDiscoverFragment extends Fragment {
 
     @OnClick(R.id.btnDislike)
     void DislikeClicked() {
+        Log.d("GBC", "dislike clicked");
         onActionListener.onUserAction(user.getIdUser(), DiscoverAction.DISLIKE);
     }
 

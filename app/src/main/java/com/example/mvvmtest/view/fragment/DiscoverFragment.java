@@ -35,6 +35,7 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
     protected FrameLayout discoverContainer;
 
     private DiscoverViewModel mViewModel;
+    private boolean isFirst = false;
 
 
     public static DiscoverFragment newInstance() {
@@ -64,7 +65,8 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initViewModel();
+        //initViewModel();
+        initStateFragment(StateFragment.EMPTY);
     }
 
     private void initViewModel() {
@@ -74,7 +76,13 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
             @Override
             public void onChanged(List<DiscoverUser> discoverUsers) {
                 Log.d("GBC", "entro aqui initview model discover fragment");
-                initDiscoverFragment(discoverUsers.get(0));
+                if (!isFirst) {
+                    isFirst = true;
+                    initDiscoverFragment(discoverUsers.get(0));
+                } else {
+                    initReplacementFragment(discoverUsers.get(0));
+                }
+
             }
         });
     }
@@ -85,15 +93,25 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
     }
 
     private void initStateFragment(StateFragment state) {
-        Fragment stateFragment = StatesFragment.newInstance(state);
+        Fragment stateFragment = DiscoverStateFragment.newInstance();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.discoverContainer, stateFragment);
+        transaction.commit();
     }
 
     private void initDiscoverFragment(DiscoverUser user) {
         Fragment discoverFragment = UserViewDiscoverFragment.newInstance(user);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.discoverContainer, discoverFragment);
+        transaction.commit();
+    }
+
+    private void initReplacementFragment(DiscoverUser user) {
+        Fragment discoverFragment = UserViewDiscoverFragment.newInstance(user);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.discoverContainer, discoverFragment);
+        transaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.commit();
     }
 

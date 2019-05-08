@@ -93,5 +93,6 @@ public class DiscoverRepository {
                 break;
             }
         }
+        Log.d("GBC", "Quedan: " + dataSet.size());
     }
 }
