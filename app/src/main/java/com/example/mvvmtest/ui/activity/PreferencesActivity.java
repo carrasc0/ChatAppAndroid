@@ -1,8 +1,7 @@
-package com.example.mvvmtest.view.activity;
+package com.example.mvvmtest.ui.activity;
 
 import android.os.Bundle;
 
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -12,12 +11,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import com.example.mvvmtest.R;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MatchActivity extends AppCompatActivity {
+public class PreferencesActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
@@ -25,7 +23,7 @@ public class MatchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match);
+        setContentView(R.layout.activity_preferences);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 

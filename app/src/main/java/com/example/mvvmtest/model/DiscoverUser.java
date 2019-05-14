@@ -26,6 +26,9 @@ public class DiscoverUser implements Parcelable {
     @SerializedName("zodiac")
     private Zodiac zodiac;
 
+    @SerializedName("distance")
+    private int distance;
+
     @SerializedName("city")
     private String city;
 
@@ -47,11 +50,12 @@ public class DiscoverUser implements Parcelable {
     @SerializedName("smoke")
     private Vices smoke;
 
-    public DiscoverUser(List<Integer> images, int idUser, int age, Zodiac zodiac, String city, String hometown, String profession, String job, String height, Vices drink, Vices smoke) {
+    public DiscoverUser(List<Integer> images, int idUser, int age, Zodiac zodiac, int distance, String city, String hometown, String profession, String job, String height, Vices drink, Vices smoke) {
         this.images = images;
         this.idUser = idUser;
         this.age = age;
         this.zodiac = zodiac;
+        this.distance = distance;
         this.city = city;
         this.hometown = hometown;
         this.profession = profession;
@@ -105,6 +109,10 @@ public class DiscoverUser implements Parcelable {
         return idUser;
     }
 
+    public int getDistance() {
+        return distance;
+    }
+
 
     @Override
     public int describeContents() {
@@ -117,6 +125,7 @@ public class DiscoverUser implements Parcelable {
         dest.writeInt(this.idUser);
         dest.writeInt(this.age);
         dest.writeInt(this.zodiac == null ? -1 : this.zodiac.ordinal());
+        dest.writeInt(this.distance);
         dest.writeString(this.city);
         dest.writeString(this.hometown);
         dest.writeString(this.profession);
@@ -126,9 +135,6 @@ public class DiscoverUser implements Parcelable {
         dest.writeInt(this.smoke == null ? -1 : this.smoke.ordinal());
     }
 
-    public DiscoverUser() {
-    }
-
     protected DiscoverUser(Parcel in) {
         this.images = new ArrayList<Integer>();
         in.readList(this.images, Integer.class.getClassLoader());
@@ -136,6 +142,7 @@ public class DiscoverUser implements Parcelable {
         this.age = in.readInt();
         int tmpZodiac = in.readInt();
         this.zodiac = tmpZodiac == -1 ? null : Zodiac.values()[tmpZodiac];
+        this.distance = in.readInt();
         this.city = in.readString();
         this.hometown = in.readString();
         this.profession = in.readString();
@@ -158,10 +165,4 @@ public class DiscoverUser implements Parcelable {
             return new DiscoverUser[size];
         }
     };
-
-    @NonNull
-    @Override
-    public String toString() {
-        return idUser + age + city + hometown + "user data";
-    }
 }

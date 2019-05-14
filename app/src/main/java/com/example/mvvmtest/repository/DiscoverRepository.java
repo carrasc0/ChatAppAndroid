@@ -9,7 +9,6 @@ import com.example.mvvmtest.model.DiscoverUser;
 import com.example.mvvmtest.model.Response.BaseResponse;
 import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
 import com.example.mvvmtest.network.RetrofitCall;
-import com.example.mvvmtest.util.Constant;
 import com.example.mvvmtest.util.DiscoverAction;
 import com.example.mvvmtest.util.Vices;
 import com.example.mvvmtest.util.Zodiac;
@@ -47,7 +46,7 @@ public class DiscoverRepository {
     private void setDiscoverUsers() {
         //retrofitCall.getDiscoverUsers(Constant.SENDER, Constant.NICKNAME, callbackGetMessages);
         dataSet.add(new DiscoverUser(null, 1, 27, Zodiac.LEO, "Sofia", "La Habana", "Software engineer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
-        dataSet.add(new DiscoverUser(null, 2, 30, Zodiac.LEO, "Plovdiv", "Matanzas", "Software developer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
+        dataSet.add(new DiscoverUser(null, 2, 30, Zodiac.ESCORPIO, "Plovdiv", "Matanzas", "Software developer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
     }
 
     public void userAction(int idUser, DiscoverAction action) {

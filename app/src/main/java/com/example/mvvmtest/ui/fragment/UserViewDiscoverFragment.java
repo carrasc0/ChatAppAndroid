@@ -1,4 +1,4 @@
-package com.example.mvvmtest.view.fragment;
+package com.example.mvvmtest.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,8 +20,6 @@ import com.example.mvvmtest.interfaces.OnUserViewDiscoverFragmentActionListener;
 import com.example.mvvmtest.model.DiscoverUser;
 import com.example.mvvmtest.util.DiscoverAction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,6 +115,11 @@ public class UserViewDiscoverFragment extends Fragment {
         }*/
         //todo hacer logica para la cantidad de imagenes que bajaron
         //todo procesar zodiaco
+        Glide.with(getActivity())
+                .asBitmap()
+                .load(user.getZodiac().getResourceId())
+                .into(zodiac);
+
         Glide.with(getContext())
                 .asBitmap()
                 .load(R.drawable.image1)
@@ -134,7 +137,7 @@ public class UserViewDiscoverFragment extends Fragment {
     }
 
     private void processText() {
-        name.setText(user.getCity() + " " + user.getAge());
+        name.setText(user.getCity() + ", Aproximadamente a " + user.getDistance() + " km");
         city.setText(user.getCity());
         hometown.setText(user.getHometown());
         profession.setText(user.getProfession());

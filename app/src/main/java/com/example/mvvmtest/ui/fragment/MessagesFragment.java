@@ -1,4 +1,4 @@
-package com.example.mvvmtest.view.fragment;
+package com.example.mvvmtest.ui.fragment;
 
 import androidx.lifecycle.ViewModelProviders;
 

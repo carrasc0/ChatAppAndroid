@@ -1,4 +1,4 @@
-package com.example.mvvmtest.view.fragment;
+package com.example.mvvmtest.ui.fragment;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -13,26 +13,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mvvmtest.R;
+import com.example.mvvmtest.viewmodel.ProfileViewModel;
 
 import butterknife.ButterKnife;
 
-public class DiscoverStateFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    private DiscoverStateViewModel mViewModel;
+    private ProfileViewModel mViewModel;
 
-    public static DiscoverStateFragment newInstance() {
-        return new DiscoverStateFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static ProfileFragment newInstance() {
+        return new ProfileFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.discover_state_fragment, container, false);
+        View view = inflater.inflate(R.layout.profile_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -40,12 +36,8 @@ public class DiscoverStateFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(DiscoverStateViewModel.class);
-    }
+        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.mvvmtest.view.activity;
+package com.example.mvvmtest.ui.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
