@@ -4,8 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mvvmtest.R
-import com.example.mvvmtest.view.activity.ChatActivity
-import com.example.mvvmtest.view.activity.MainActivity
+import com.example.mvvmtest.ui.activity.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.fragment.UserViewDiscoverFragment">
+    tools:context=".ui.fragment.UserViewDiscoverFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -24,14 +24,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:padding="16dp"
-                android:text="25, Sofia"
-                android:textSize="24sp" />
+                android:text="Sofia, 1 km aproximadamente"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/zodiacDU"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
                 android:src="@mipmap/ic_launcher" />
 
 

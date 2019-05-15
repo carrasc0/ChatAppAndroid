@@ -1,4 +1,4 @@
-package com.example.mvvmtest.view.fragment;
+package com.example.mvvmtest.ui.fragment;
 
 import android.content.Context;
 import android.net.Uri;

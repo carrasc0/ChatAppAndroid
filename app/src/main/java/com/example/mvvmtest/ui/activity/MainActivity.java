@@ -1,4 +1,4 @@
-package com.example.mvvmtest.view.activity;
+package com.example.mvvmtest.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.mvvmtest.R;
-import com.example.mvvmtest.view.fragment.DiscoverFragment;
-import com.example.mvvmtest.view.fragment.MessagesFragment;
-import com.example.mvvmtest.view.fragment.ProfileFragment;
+import com.example.mvvmtest.ui.fragment.DiscoverFragment;
+import com.example.mvvmtest.ui.fragment.MessagesFragment;
+import com.example.mvvmtest.kotlin.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private void initFragments() {
         discoverFragment = DiscoverFragment.newInstance();
         messagesFragment = MessagesFragment.newInstance();
-        profileFragment = ProfileFragment.newInstance();
+        profileFragment = ProfileFragment.Companion.newInstance();
         fragmentManager = getSupportFragmentManager();
         activeFragment = discoverFragment;
 

@@ -8,8 +8,8 @@ import com.example.mvvmtest.manager.Preferences;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.repository.ChatRepository;
 import com.example.mvvmtest.repository.DiscoverRepository;
-import com.example.mvvmtest.view.activity.ChatActivity;
-import com.example.mvvmtest.view.fragment.DiscoverFragment;
+import com.example.mvvmtest.ui.activity.ChatActivity;
+import com.example.mvvmtest.ui.fragment.DiscoverFragment;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
 import com.example.mvvmtest.viewmodel.DiscoverViewModel;
 

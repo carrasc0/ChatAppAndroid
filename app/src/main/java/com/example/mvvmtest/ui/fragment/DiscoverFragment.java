@@ -1,4 +1,4 @@
-package com.example.mvvmtest.view.fragment;
+package com.example.mvvmtest.ui.fragment;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -65,8 +65,8 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //initViewModel();
-        initStateFragment(StateFragment.EMPTY);
+        initViewModel();
+        //initStateFragment(StateFragment.EMPTY);
     }
 
     private void initViewModel() {
