@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.ui.fragment.DiscoverFragment;
 import com.example.mvvmtest.ui.fragment.MessagesFragment;
-import com.example.mvvmtest.ui.fragment.ProfileFragment;
+import com.example.mvvmtest.kotlin.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private void initFragments() {
         discoverFragment = DiscoverFragment.newInstance();
         messagesFragment = MessagesFragment.newInstance();
-        profileFragment = ProfileFragment.newInstance();
+        profileFragment = ProfileFragment.Companion.newInstance();
         fragmentManager = getSupportFragmentManager();
         activeFragment = discoverFragment;
 
