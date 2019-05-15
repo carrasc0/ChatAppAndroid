@@ -21,8 +21,6 @@ import com.example.mvvmtest.model.DiscoverUser;
 import com.example.mvvmtest.util.DiscoverAction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
