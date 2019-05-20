@@ -16,7 +16,7 @@ import android.widget.EditText;
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.adapter.ChatAdapter;
 import com.example.mvvmtest.dagger.component.ApiController;
-import com.example.mvvmtest.manager.Preferences;
+import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.util.Constant;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
@@ -40,7 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     protected Socket socket;
 
     @Inject
-    protected Preferences sharedPreferences;
+    protected FlechPreferences sharedFlechPreferences;
 
     @BindView(R.id.chatRecyclerView)
     protected RecyclerView recyclerView;

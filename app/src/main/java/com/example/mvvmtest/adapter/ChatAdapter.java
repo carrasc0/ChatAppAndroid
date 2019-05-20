@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.dagger.component.ApiController;
-import com.example.mvvmtest.manager.Preferences;
+import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.model.Message;
 import com.example.mvvmtest.util.Constant;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -33,7 +33,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
 
     @Inject
-    Preferences sharedPreferences;
+    FlechPreferences sharedFlechPreferences;
 
     public ChatAdapter(Context context, List<Message> items) {
         ApiController.getAppComponent().inject(this);

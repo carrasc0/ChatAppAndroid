@@ -4,9 +4,6 @@ import android.app.Application;
 
 import com.example.mvvmtest.dagger.module.AppModule;
 import com.example.mvvmtest.dagger.module.NetworkModule;
-import com.example.mvvmtest.manager.Preferences;
-
-import javax.inject.Inject;
 
 
 public class ApiController extends Application {

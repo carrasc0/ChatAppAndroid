@@ -4,7 +4,7 @@ import com.example.mvvmtest.adapter.ChatAdapter;
 import com.example.mvvmtest.adapter.MatchAdapter;
 import com.example.mvvmtest.dagger.module.AppModule;
 import com.example.mvvmtest.dagger.module.NetworkModule;
-import com.example.mvvmtest.manager.Preferences;
+import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.repository.ChatRepository;
 import com.example.mvvmtest.repository.DiscoverRepository;
@@ -30,7 +30,7 @@ public interface AppComponent {
     void inject(DiscoverViewModel
                         discoverViewModel);
 
-    void inject(Preferences preferences);
+    void inject(FlechPreferences flechPreferences);
 
     void inject(RetrofitCall retrofitCall);
 

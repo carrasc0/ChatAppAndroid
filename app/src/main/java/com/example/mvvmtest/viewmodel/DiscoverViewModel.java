@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mvvmtest.dagger.component.ApiController;
-import com.example.mvvmtest.manager.Preferences;
+import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.model.DiscoverUser;
 import com.example.mvvmtest.repository.DiscoverRepository;
 import com.example.mvvmtest.util.DiscoverAction;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
 public class DiscoverViewModel extends ViewModel {
 
     @Inject
-    protected Preferences preferences;
+    protected FlechPreferences flechPreferences;
 
     @Inject
     protected DiscoverRepository discoverRepository;
