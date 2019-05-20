@@ -13,12 +13,9 @@ import com.example.mvvmtest.util.DiscoverAction;
 import com.example.mvvmtest.util.Vices;
 import com.example.mvvmtest.util.Zodiac;
 import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,8 +42,8 @@ public class DiscoverRepository {
 
     private void setDiscoverUsers() {
         //retrofitCall.getDiscoverUsers(Constant.SENDER, Constant.NICKNAME, callbackGetMessages);
-        dataSet.add(new DiscoverUser(null, 1, 27, Zodiac.LEO, "Sofia", "La Habana", "Software engineer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
-        dataSet.add(new DiscoverUser(null, 2, 30, Zodiac.ESCORPIO, "Plovdiv", "Matanzas", "Software developer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
+        dataSet.add(new DiscoverUser(null, 1, 27, Zodiac.LEO, 300, "Sofia", "La Habana", "Software engineer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
+        dataSet.add(new DiscoverUser(null, 2, 30, Zodiac.LEO, 2000, "Plovdiv", "Matanzas", "Software developer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
     }
 
     public void userAction(int idUser, DiscoverAction action) {

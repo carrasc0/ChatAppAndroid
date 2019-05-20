@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.dagger.component.ApiController;
-import com.example.mvvmtest.manager.Preferences;
+import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.model.Message;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -26,7 +26,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchVH> {
     private Context context;
 
     @Inject
-    Preferences sharedPreferences;
+    FlechPreferences sharedFlechPreferences;
 
     public MatchAdapter(Context context, List<Message> items) {
         ApiController.getAppComponent().inject(this);

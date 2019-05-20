@@ -7,11 +7,16 @@ import com.example.mvvmtest.model.Response.GetMessagesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 public interface RetrofitInterface {
+
+    @Headers("Content-Type: application/json")
+    @GET("/getUserDataEditProfile")
+    Call<BaseResponse> getUserDataEditProfile();
 
     @Headers("Content-Type: application/json")
     @POST("/getMessages")

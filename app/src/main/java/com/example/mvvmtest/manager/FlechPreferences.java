@@ -6,14 +6,15 @@ import android.content.SharedPreferences;
 
 import com.example.mvvmtest.dagger.component.ApiController;
 
-public class Preferences {
+public class FlechPreferences {
 
-    private static final String SHARED_PREFERENCES_NAME = "sharedPreferences";
+    private static final String SHARED_PREFERENCES_NAME = "sharedFlechPreferences";
     private static final String KEY_ID_USER = "idUser";
+    private static final String KEY_NAME_USER = "nameUser";
 
     private SharedPreferences sharedPreferences;
 
-    public Preferences(Context context) {
+    public FlechPreferences(Context context) {
         ApiController.getAppComponent().inject(this);
         sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         setIdUser(1);

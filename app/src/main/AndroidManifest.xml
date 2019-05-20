@@ -14,10 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="${usesCleartextTraffic}">
+        <activity android:name=".ui.activity.LoginActivity"></activity>
         <activity
             android:name=".ui.activity.EditProfileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.PreferencesActivity"
             android:label="@string/title_activity_preferences"

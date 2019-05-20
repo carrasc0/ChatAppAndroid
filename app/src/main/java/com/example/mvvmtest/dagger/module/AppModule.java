@@ -2,7 +2,7 @@ package com.example.mvvmtest.dagger.module;
 
 import android.app.Application;
 
-import com.example.mvvmtest.manager.Preferences;
+import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.repository.ChatRepository;
 import com.example.mvvmtest.repository.DiscoverRepository;
 
@@ -28,8 +28,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    Preferences providePreferences() {
-        return new Preferences(application);
+    FlechPreferences providePreferences() {
+        return new FlechPreferences(application);
     }
 
     @Provides
