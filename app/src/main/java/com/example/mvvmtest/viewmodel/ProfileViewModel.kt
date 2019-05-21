@@ -1,4 +1,4 @@
-package com.example.mvvmtest.kotlin
+package com.example.mvvmtest.viewmodel
 
 import androidx.lifecycle.ViewModel
 

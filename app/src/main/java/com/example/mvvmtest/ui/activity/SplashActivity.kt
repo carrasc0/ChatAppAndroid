@@ -1,10 +1,9 @@
-package com.example.mvvmtest.kotlin
+package com.example.mvvmtest.ui.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mvvmtest.R
-import com.example.mvvmtest.ui.activity.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 

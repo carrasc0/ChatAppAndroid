@@ -8,10 +8,12 @@ import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.repository.ChatRepository;
 import com.example.mvvmtest.repository.DiscoverRepository;
+import com.example.mvvmtest.repository.MatchRepository;
 import com.example.mvvmtest.ui.activity.ChatActivity;
 import com.example.mvvmtest.ui.fragment.DiscoverFragment;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
 import com.example.mvvmtest.viewmodel.DiscoverViewModel;
+import com.example.mvvmtest.viewmodel.MatchViewModel;
 
 import javax.inject.Singleton;
 
@@ -27,8 +29,9 @@ public interface AppComponent {
 
     void inject(ChatViewModel chatViewModel);
 
-    void inject(DiscoverViewModel
-                        discoverViewModel);
+    void inject(MatchViewModel matchViewModel);
+
+    void inject(DiscoverViewModel discoverViewModel);
 
     void inject(FlechPreferences flechPreferences);
 
@@ -37,6 +40,8 @@ public interface AppComponent {
     void inject(ChatRepository chatRepository);
 
     void inject(DiscoverRepository discoverRepository);
+
+    void inject(MatchRepository matchRepository);
 
     void inject(ChatAdapter chatAdapter);
 

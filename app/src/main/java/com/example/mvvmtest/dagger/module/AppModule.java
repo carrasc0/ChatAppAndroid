@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.repository.ChatRepository;
 import com.example.mvvmtest.repository.DiscoverRepository;
+import com.example.mvvmtest.repository.MatchRepository;
 
 import javax.inject.Singleton;
 
@@ -34,14 +35,20 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ChatRepository provideChatRepository(){
+    ChatRepository provideChatRepository() {
         return new ChatRepository();
     }
 
     @Provides
     @Singleton
-    DiscoverRepository provideDiscoverRepository(){
+    DiscoverRepository provideDiscoverRepository() {
         return new DiscoverRepository();
+    }
+
+    @Provides
+    @Singleton
+    MatchRepository provideMatchRepository() {
+        return new MatchRepository();
     }
 
 }

@@ -35,7 +35,7 @@
             android:name=".ui.activity.MainActivity"
             android:label="@string/title_activity_match"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".kotlin.SplashActivity">
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

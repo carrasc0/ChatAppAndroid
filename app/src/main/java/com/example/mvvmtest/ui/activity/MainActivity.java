@@ -10,8 +10,8 @@ import android.view.MenuItem;
 
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.ui.fragment.DiscoverFragment;
-import com.example.mvvmtest.ui.fragment.MessagesFragment;
-import com.example.mvvmtest.kotlin.ProfileFragment;
+import com.example.mvvmtest.ui.fragment.MatchFragment;
+import com.example.mvvmtest.ui.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected BottomNavigationView bottomNavigation;
 
     private DiscoverFragment discoverFragment;
-    private MessagesFragment messagesFragment;
+    private MatchFragment matchFragment;
     private ProfileFragment profileFragment;
     private FragmentManager fragmentManager;
     private Fragment activeFragment;
@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragments() {
+
         discoverFragment = DiscoverFragment.newInstance();
-        messagesFragment = MessagesFragment.newInstance();
+        matchFragment = MatchFragment.newInstance();
         profileFragment = ProfileFragment.Companion.newInstance();
         fragmentManager = getSupportFragmentManager();
         activeFragment = discoverFragment;
@@ -54,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
                         activeFragment = discoverFragment;
                         return true;
                     case R.id.action_messages:
-                        fragmentManager.beginTransaction().hide(activeFragment).show(messagesFragment).commit();
-                        activeFragment = messagesFragment;
+                        fragmentManager.beginTransaction().hide(activeFragment).show(matchFragment).commit();
+                        activeFragment = matchFragment;
                         return true;
-
                     case R.id.action_profile:
                         fragmentManager.beginTransaction().hide(activeFragment).show(profileFragment).commit();
                         activeFragment = profileFragment;
@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         };
-        bottomNavigation.setOnNavigationItemSelectedListener(itemSelectedListener);
 
+        bottomNavigation.setOnNavigationItemSelectedListener(itemSelectedListener);
         fragmentManager.beginTransaction().add(R.id.mainActivityContainer, profileFragment, "3").hide(profileFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.mainActivityContainer, messagesFragment, "2").hide(messagesFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.mainActivityContainer, matchFragment, "2").hide(matchFragment).commit();
         fragmentManager.beginTransaction().add(R.id.mainActivityContainer, discoverFragment, "1").commit();
 
     }
