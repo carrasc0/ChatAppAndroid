@@ -1,4 +1,4 @@
-package com.example.mvvmtest.kotlin
+package com.example.mvvmtest.ui.fragment
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +15,7 @@ import com.example.mvvmtest.R
 import butterknife.ButterKnife
 import com.example.mvvmtest.ui.activity.EditProfileActivity
 import com.example.mvvmtest.ui.activity.SettingsActivity
+import com.example.mvvmtest.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.profile_fragment.*
 
 class ProfileFragment : Fragment() {

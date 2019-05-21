@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -61,6 +62,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
     //annotationProcessor "android.arch.lifecycle:compiler$archLifecycleVersion"
 
     implementation "com.github.bumptech.glide:glide:$glideVersion"
@@ -74,6 +76,7 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
