@@ -10,7 +10,9 @@ import com.example.mvvmtest.model.Match
 import com.example.mvvmtest.util.inflate
 import kotlinx.android.synthetic.main.design_match.view.*
 
-class MatchAdapter(private val items: List<Match>) : RecyclerView.Adapter<MatchAdapter.MatchVH>() {
+class MatchAdapter(private var items: List<Match>) : RecyclerView.Adapter<MatchAdapter.MatchVH>() {
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchVH {
         val inflatedView = parent.inflate(R.layout.design_match, false)
