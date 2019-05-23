@@ -19,8 +19,11 @@ public class Constant {
 
     }
 
+    public static final class Others {
 
+        public static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
+    }
 
 
 }

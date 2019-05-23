@@ -8,6 +8,7 @@ import com.example.mvvmtest.manager.FlechPreferences;
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.repository.ChatRepository;
 import com.example.mvvmtest.repository.DiscoverRepository;
+import com.example.mvvmtest.repository.MainActivityRepository;
 import com.example.mvvmtest.repository.MatchRepository;
 import com.example.mvvmtest.ui.activity.ChatActivity;
 import com.example.mvvmtest.ui.fragment.DiscoverFragment;
@@ -38,6 +39,8 @@ public interface AppComponent {
     void inject(RetrofitCall retrofitCall);
 
     void inject(ChatRepository chatRepository);
+
+    void inject(MainActivityRepository mainActivityRepository);
 
     void inject(DiscoverRepository discoverRepository);
 

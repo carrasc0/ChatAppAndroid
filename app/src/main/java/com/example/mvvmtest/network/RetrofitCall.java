@@ -35,4 +35,9 @@ public class RetrofitCall {
         call.enqueue(callback);
     }
 
+    public void setCoordinates(String latitude, String longitude, Callback<BaseResponse> callback) {
+        Call<BaseResponse> call = retrofitInterface.setCoordinates();
+        call.enqueue(callback);
+    }
+
 }

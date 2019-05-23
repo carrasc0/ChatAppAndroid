@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mvvmtest.dagger.component.ApiController;
 import com.example.mvvmtest.manager.FlechPreferences;
-import com.example.mvvmtest.model.DiscoverUser;
 import com.example.mvvmtest.model.Match;
 import com.example.mvvmtest.repository.MatchRepository;
 

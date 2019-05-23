@@ -38,6 +38,7 @@ def butterKnifeVersion = '10.1.0'
 def retrofit2Version = '2.5.0'
 def daggerVersion = '2.22.1'
 def kotlinCoroutines = '1.2.1'
+def playServicesVersion = '16.0.0'
 
 
 dependencies {
@@ -92,6 +93,7 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
+    implementation "com.google.android.gms:play-services-location:$playServicesVersion"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines"
