@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:padding="16dp"
-                android:text="Sofia, 1 km aproximadamente"
+                android:text="1 km aproximadamente"
                 android:textSize="18sp" />
 
             <ImageView
@@ -32,9 +32,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="8dp"
-                android:src="@mipmap/ic_launcher" />
-
+                android:layout_margin="8dp" />
 
             <ImageView
                 android:id="@+id/image1DU"
@@ -50,10 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/image1DU"
                 android:layout_alignParentStart="true"
+                android:drawableStart="@drawable/ic_placeholder"
+                android:drawablePadding="8dp"
                 android:padding="16dp"
                 android:text="Sofia"
-                android:textSize="20sp" />
-
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/homeTownDU"
@@ -61,9 +60,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/image1DU"
                 android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_home"
+                android:drawablePadding="8dp"
                 android:padding="16dp"
                 android:text="La Habana"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/professionDU"
@@ -71,9 +72,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cityDU"
                 android:layout_alignParentStart="true"
+                android:drawableStart="@drawable/ic_suitcase"
+                android:drawablePadding="8dp"
                 android:padding="16dp"
                 android:text="Software Engineer"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
             <TextView
@@ -82,9 +85,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/homeTownDU"
                 android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_suitcase"
+                android:drawablePadding="8dp"
                 android:padding="16dp"
                 android:text="Musala Soft"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/image2DU"
@@ -100,9 +105,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/image2DU"
                 android:layout_alignParentStart="true"
+                android:drawableStart="@drawable/ic_height"
+                android:drawablePadding="8dp"
                 android:padding="16dp"
                 android:text="1.75 m"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
             <TextView
@@ -121,6 +128,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/heightDU"
                 android:layout_alignParentStart="true"
+                android:drawableStart="@drawable/ic_cocktail"
+                android:drawablePadding="8dp"
                 android:padding="16dp"
                 android:text="Sometimes"
                 android:textSize="20sp" />
@@ -132,6 +141,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/noideaDU"
                 android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_cigarette"
+                android:drawablePadding="8dp"
                 android:padding="16dp"
                 android:text="Sometimes"
                 android:textSize="20sp" />

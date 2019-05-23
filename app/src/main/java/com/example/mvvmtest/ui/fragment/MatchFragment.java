@@ -1,5 +1,6 @@
 package com.example.mvvmtest.ui.fragment;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,10 @@ import android.widget.FrameLayout;
 
 import com.example.mvvmtest.R;
 import com.example.mvvmtest.adapter.MatchAdapter;
+import com.example.mvvmtest.model.Match;
 import com.example.mvvmtest.viewmodel.MatchViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +30,7 @@ import butterknife.ButterKnife;
 public class MatchFragment extends Fragment {
 
     private MatchViewModel viewModel;
+    private MatchAdapter adapter;
 
     @BindView(R.id.matchRecyclerView)
     protected RecyclerView recyclerView;
@@ -53,17 +59,30 @@ public class MatchFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(MatchViewModel.class);
+        viewModel.init();
+        initRecyclerView();
+        viewModel.getMatch().observe(this, new Observer<List<Match>>() {
+            @Override
+            public void onChanged(List<Match> matches) {
+                if (matches != null) {
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Log.d("GBC", "items is null");
+                }
+            }
+        });
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initRecyclerView();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new MatchAdapter(viewModel.getMatch().getValue()));
+        adapter = new MatchAdapter(viewModel.getMatch().getValue());
+        recyclerView.setAdapter(adapter);
     }
 
 }
