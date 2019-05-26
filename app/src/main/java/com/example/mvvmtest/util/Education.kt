@@ -1,6 +1,6 @@
-package com.example.mvvmtest.util;
+package com.example.mvvmtest.util
 
-public enum Education {
+enum class Education {
     HIGHT_SCHOOL,
     UNDERGRAD,
     POSTGRAD,

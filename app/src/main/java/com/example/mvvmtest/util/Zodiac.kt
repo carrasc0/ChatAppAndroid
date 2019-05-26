@@ -1,8 +1,8 @@
-package com.example.mvvmtest.util;
+package com.example.mvvmtest.util
 
-import com.example.mvvmtest.R;
+import com.example.mvvmtest.R
 
-public enum Zodiac {
+enum class Zodiac constructor(val resourceId: Int) {
     CAPRICORIO(R.drawable.capricornius),
     ACUARIO(R.drawable.aquarius),
     PISCIS(R.drawable.pisces),
@@ -14,15 +14,5 @@ public enum Zodiac {
     VIRGO(R.drawable.virgo),
     LIBRA(R.drawable.libra),
     ESCORPIO(R.drawable.scorpius),
-    SAGITARIO(R.drawable.sagittarius);
-
-    private final int resourceId;
-
-    Zodiac(int resourceId) {
-        this.resourceId = resourceId;
-    }
-
-    public int getResourceId() {
-        return resourceId;
-    }
+    SAGITARIO(R.drawable.sagittarius)
 }

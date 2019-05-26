@@ -1,6 +1,6 @@
-package com.example.mvvmtest.util;
+package com.example.mvvmtest.util
 
-public enum FamilyPlans {
+enum class FamilyPlans {
     WANT,
     DONT_WANT,
     OPEN_TO_IT,

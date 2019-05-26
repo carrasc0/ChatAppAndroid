@@ -1,6 +1,6 @@
-package com.example.mvvmtest.util;
+package com.example.mvvmtest.util
 
-public enum Vices {
+enum class Vices {
     YES,
     NO,
     SOMETIMES,
