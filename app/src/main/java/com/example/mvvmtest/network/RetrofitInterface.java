@@ -4,6 +4,8 @@ import com.example.mvvmtest.model.Request.GetMessagesRequest;
 import com.example.mvvmtest.model.Response.BaseResponse;
 import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
 import com.example.mvvmtest.model.Response.GetMessagesResponse;
+
+import kotlinx.coroutines.Deferred;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -34,7 +36,7 @@ public interface RetrofitInterface {
 
     @Headers("Content-Type: application/json")
     @PUT("/setCoordinates")
-    Call<BaseResponse> setCoordinates();
+    Deferred<BaseResponse> setCoordinates();
 
 
 }

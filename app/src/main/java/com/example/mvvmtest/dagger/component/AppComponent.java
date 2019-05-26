@@ -14,6 +14,7 @@ import com.example.mvvmtest.ui.activity.ChatActivity;
 import com.example.mvvmtest.ui.fragment.DiscoverFragment;
 import com.example.mvvmtest.viewmodel.ChatViewModel;
 import com.example.mvvmtest.viewmodel.DiscoverViewModel;
+import com.example.mvvmtest.viewmodel.MainActivityViewModel;
 import com.example.mvvmtest.viewmodel.MatchViewModel;
 
 import javax.inject.Singleton;
@@ -31,6 +32,8 @@ public interface AppComponent {
     void inject(ChatViewModel chatViewModel);
 
     void inject(MatchViewModel matchViewModel);
+
+    void inject(MainActivityViewModel mainActivityViewModel);
 
     void inject(DiscoverViewModel discoverViewModel);
 

@@ -25,6 +25,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -146,7 +147,7 @@ class MainActivity : AppCompatActivity() {
             actionStrId: Int = 0,
             listener: View.OnClickListener? = null) {
         val snackbar = Snackbar.make(findViewById(android.R.id.content), getString(snackStrId),
-                LENGTH_INDEFINITE)
+                LENGTH_LONG)
         if (actionStrId != 0 && listener != null) {
             snackbar.setAction(getString(actionStrId), listener)
         }
@@ -176,6 +177,7 @@ class MainActivity : AppCompatActivity() {
                     val longitude = result.longitude
                     Snackbar.make(findViewById(android.R.id.content), "Lat : $latitude Long : $longitude", LENGTH_INDEFINITE).show()
                     Log.d(TAG, "Lat : $latitude Long : $longitude")
+                    viewModel!!.setCoordinates(latitude.toString(), longitude.toString())
                 } else {
                     Log.d(TAG, "result is null")
                 }

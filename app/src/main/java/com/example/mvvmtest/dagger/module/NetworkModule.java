@@ -2,17 +2,25 @@ package com.example.mvvmtest.dagger.module;
 
 import com.example.mvvmtest.network.RetrofitCall;
 import com.example.mvvmtest.network.RetrofitInterface;
+
 import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
+
 import android.app.Application;
+
 import com.example.mvvmtest.util.Constant;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory;
+
 import java.net.URISyntaxException;
+
+import kotlin.coroutines.CoroutineContext;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -70,6 +78,7 @@ public class NetworkModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(CoroutineCallAdapterFactory.create())
                 .baseUrl(apiUrl)
                 .client(okHttpClient)
                 .build();

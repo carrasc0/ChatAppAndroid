@@ -100,14 +100,14 @@ public class DiscoverFragment extends Fragment implements OnUserViewDiscoverFrag
     }
 
     private void initDiscoverFragment(DiscoverUser user) {
-        Fragment discoverFragment = UserViewDiscoverFragment.newInstance(user);
+        Fragment discoverFragment = UserViewDiscoverFragment.Companion.newInstance(user);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.discoverContainer, discoverFragment);
         transaction.commit();
     }
 
     private void initReplacementFragment(DiscoverUser user) {
-        Fragment discoverFragment = UserViewDiscoverFragment.newInstance(user);
+        Fragment discoverFragment = UserViewDiscoverFragment.Companion.newInstance(user);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.discoverContainer, discoverFragment);
         transaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
