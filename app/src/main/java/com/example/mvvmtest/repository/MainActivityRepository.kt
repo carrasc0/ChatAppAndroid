@@ -27,7 +27,7 @@ class MainActivityRepository {
     }
 
     //suspend fun <T : Any> setCoordinates(call: suspend () -> Response<T>, errorMessage: String): T? {
-    //    val result : Result<T>
+    //    val result : ResultResponse<T>
     //}
 
 

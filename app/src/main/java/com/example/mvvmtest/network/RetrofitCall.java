@@ -18,12 +18,6 @@ public class RetrofitCall {
         this.retrofitInterface = retrofitInterface;
     }
 
-    public void getMessages(int sender, int nickname, Callback<GetMessagesResponse> callback) {
-        GetMessagesRequest getMessagesRequest = new GetMessagesRequest(sender, nickname);
-        Call<GetMessagesResponse> call = retrofitInterface.getMessages(getMessagesRequest);
-        call.enqueue(callback);
-    }
-
     public void getDiscoverUsers(int sender, int nickname, Callback<DiscoverUsersResponse> callback) {
         GetMessagesRequest getMessagesRequest = new GetMessagesRequest(sender, nickname);
         Call<DiscoverUsersResponse> call = retrofitInterface.getDiscoverUsers(getMessagesRequest);

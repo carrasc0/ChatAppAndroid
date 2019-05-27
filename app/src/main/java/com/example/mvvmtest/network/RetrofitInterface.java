@@ -22,9 +22,6 @@ public interface RetrofitInterface {
     @GET("/getUserDataEditProfile/{id}")
     Call<BaseResponse> getUserDataEditProfile(@Path("id") int id);
 
-    @Headers("Content-Type: application/json")
-    @POST("/getMessages")
-    Call<GetMessagesResponse> getMessages(@Body GetMessagesRequest request);
 
     @Headers("Content-Type: application/json")
     @POST("/getDiscoverUsers")
