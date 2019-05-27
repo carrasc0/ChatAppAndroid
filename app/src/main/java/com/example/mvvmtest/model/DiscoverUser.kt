@@ -58,5 +58,6 @@ data class DiscoverUser(
             return arrayOfNulls(size)
         }
     }
+
 }
 
