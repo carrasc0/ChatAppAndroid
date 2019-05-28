@@ -13,8 +13,10 @@ import android.view.ViewGroup
 import com.example.mvvmtest.R
 
 import butterknife.ButterKnife
+import com.example.mvvmtest.ui.activity.ChatActivity
 import com.example.mvvmtest.ui.activity.EditProfileActivity
 import com.example.mvvmtest.ui.activity.SettingsActivity
+import com.example.mvvmtest.util.Constant
 import com.example.mvvmtest.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.profile_fragment.*
 
@@ -58,7 +60,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun performEditIntent() {
-        val settingIntent = Intent(context, EditProfileActivity::class.java)
+        val settingIntent = Intent(context, ChatActivity::class.java)
+        settingIntent.putExtra("nickname", 2)
         startActivity(settingIntent)
     }
 

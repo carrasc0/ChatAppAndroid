@@ -42,8 +42,8 @@ public class DiscoverRepository {
 
     private void setDiscoverUsers() {
         //retrofitCall.getDiscoverUsers(Constant.SENDER, Constant.NICKNAME, callbackGetMessages);
-        dataSet.add(new DiscoverUser(null, 1, 27, Zodiac.LEO, 300, "Sofia", "La Habana", "Software engineer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
-        dataSet.add(new DiscoverUser(null, 2, 30, Zodiac.LEO, 2000, "Plovdiv", "Matanzas", "Software developer", "Musala Soft", "1.75", Vices.SOMETIMES, Vices.SOMETIMES));
+        dataSet.add(new DiscoverUser(1, 27, Zodiac.LEO.name(), 300, "Sofia", "La Habana", "Software engineer", "Musala Soft", "1.75", Vices.SOMETIMES.name(), Vices.SOMETIMES.name()));
+        dataSet.add(new DiscoverUser(2, 30, Zodiac.CANCER.name(), 2000, "Plovdiv", "Matanzas", "Software developer", "Musala Soft", "1.75", Vices.SOMETIMES.name(), Vices.SOMETIMES.name()));
     }
 
     public void userAction(int idUser, DiscoverAction action) {

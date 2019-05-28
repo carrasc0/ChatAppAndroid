@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private var profileFragment: ProfileFragment? = null
     private var fragmentManager: FragmentManager? = null
     private var activeFragment: Fragment? = null
-    private var itemSelectedListener: BottomNavigationView.OnNavigationItemSelectedListener? = null
+    private lateinit var itemSelectedListener: BottomNavigationView.OnNavigationItemSelectedListener
     private var viewModel: MainActivityViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

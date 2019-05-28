@@ -6,43 +6,43 @@ import com.example.mvvmtest.util.Vices
 import com.example.mvvmtest.util.Zodiac
 
 data class DiscoverUser(
-        val images: List<Int>,
         val idUser: Int,
         val age: Int,
-        val zodiac: Zodiac,
+        val zodiac: String,
         val distance: Int,
         val city: String,
         val hometown: String,
         val profession: String,
         val job: String,
         val height: String,
-        val drink: Vices,
-        val smoke: Vices) : Parcelable {
-
+        val drink: String,
+        val smoke: String) : Parcelable{
     constructor(parcel: Parcel) : this(
-            TODO("images"),
             parcel.readInt(),
             parcel.readInt(),
-            TODO("zodiac"),
+            parcel.readString(),
             parcel.readInt(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            TODO("drink"),
-            TODO("smoke")) {
+            parcel.readString(),
+            parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(idUser)
         parcel.writeInt(age)
+        parcel.writeString(zodiac)
         parcel.writeInt(distance)
         parcel.writeString(city)
         parcel.writeString(hometown)
         parcel.writeString(profession)
         parcel.writeString(job)
         parcel.writeString(height)
+        parcel.writeString(drink)
+        parcel.writeString(smoke)
     }
 
     override fun describeContents(): Int {

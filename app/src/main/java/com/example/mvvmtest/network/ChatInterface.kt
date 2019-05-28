@@ -12,7 +12,7 @@ interface ChatInterface {
 
     @Headers("Content-Type: application/json")
     @POST("/getMessages")
-    fun getMessages(@Body request: Int): Deferred<Response<GetMessagesResponse>>
+    fun getMessages(@Body request: GetMessagesRequest): Deferred<Response<GetMessagesResponse>>
 
     @Headers("Content-Type: application/json")
     @POST("/getMessages")

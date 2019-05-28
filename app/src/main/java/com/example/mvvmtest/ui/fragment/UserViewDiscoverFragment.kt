@@ -69,7 +69,7 @@ class UserViewDiscoverFragment : Fragment() {
         //todo procesar zodiaco
         Glide.with(activity!!)
                 .asBitmap()
-                .load(user!!.zodiac.resourceId)
+                .load(R.drawable.leo)
                 .into(zodiacDU)
 
         Glide.with(context!!)
@@ -95,8 +95,8 @@ class UserViewDiscoverFragment : Fragment() {
         professionDU.text = user!!.profession
         jobDU.text = user!!.job
         heightDU.text = user!!.height
-        drinkDU.text = user!!.smoke.name
-        smokeDU.text = user!!.smoke.name
+        drinkDU.text = "Sometimes"
+        smokeDU.text = "Sometimes"
     }
 
     @OnClick(R.id.btnILoveIt)
