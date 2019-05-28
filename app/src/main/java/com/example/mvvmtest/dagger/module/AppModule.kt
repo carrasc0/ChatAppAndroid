@@ -3,6 +3,7 @@ package com.example.mvvmtest.dagger.module
 import android.app.Application
 
 import com.example.mvvmtest.manager.FlechPreferences
+import com.example.mvvmtest.network.ChatInterface
 import com.example.mvvmtest.repository.ChatRepository
 import com.example.mvvmtest.repository.DiscoverRepository
 import com.example.mvvmtest.repository.MainActivityRepository
@@ -33,8 +34,8 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    internal fun provideChatRepository(): ChatRepository {
-        return ChatRepository()
+    internal fun provideChatRepository(chatInterface: ChatInterface): ChatRepository {
+        return ChatRepository(chatInterface)
     }
 
     @Provides

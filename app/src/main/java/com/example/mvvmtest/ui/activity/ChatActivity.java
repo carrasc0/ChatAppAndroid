@@ -79,14 +79,14 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        chatAdapter = new ChatAdapter(ChatActivity.this, chatViewModel.getMessages().getValue());
+        //chatAdapter = new ChatAdapter(ChatActivity.this, chatViewModel.getMessages().getValue());
         recyclerView.setAdapter(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
     }
 
     private void initViewModel() {
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
-        chatViewModel.init(nickname);
+       /* chatViewModel.init(nickname);
         chatViewModel.getMessages().observe(this, new Observer<List<Message>>() {
             @Override
             public void onChanged(@Nullable List<Message> messages) {
@@ -102,14 +102,14 @@ public class ChatActivity extends AppCompatActivity {
                     checkChatStatus();
                 }
             }
-        });
+        });*/
 
     }
 
     private void initSocket() {
         socket.connect();
-        socket.on(Constant.SocketEvent.NEW_MESSAGE, chatViewModel.onNewMessage);
-        socket.on(Constant.SocketEvent.TYPING, chatViewModel.onTyping);
+        //socket.on(Constant.SocketEvent.NEW_MESSAGE, chatViewModel.onNewMessage);
+        //socket.on(Constant.SocketEvent.TYPING, chatViewModel.onTyping);
     }
 
     @OnClick(R.id.sendButton)
@@ -118,7 +118,7 @@ public class ChatActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(text)) {
             return;
         }
-        chatViewModel.sendMessage(socket, new Message(Constant.SENDER, nickname, text));
+        //chatViewModel.sendMessage(socket, new Message(Constant.SENDER, nickname, text));
         sendEditText.setText("");
     }
 
