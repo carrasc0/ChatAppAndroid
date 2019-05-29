@@ -3,6 +3,7 @@ package com.example.mvvmtest.viewmodel
 
 import android.util.Log
 import android.util.MutableBoolean
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvmtest.dagger.component.ApiController
@@ -51,7 +52,6 @@ class ChatViewModel(private val nickname: Int) : ViewModel() {
         //launch the coroutine scope
         scope.launch {
             //get the messages
-            Log.d("GBC View Model", messagesLiveData.toString())
             val messages = chatRepository.getMessages(nickname)
             //post the value inside live data
             messagesLiveData.postValue(messages)
@@ -68,7 +68,7 @@ class ChatViewModel(private val nickname: Int) : ViewModel() {
     fun sendTyping(socket: Socket, typing: Typing) {
         scope.launch {
             val jsonObject = JsonManager.createEmitTyping(typing.sender, typing.nickname, typing.typing)
-            socket.emit(Constant.SocketKey.FUNCTION_KEY, jsonObject)
+            socket.emit(Constant.SocketEvent.TYPING, jsonObject)
         }
     }
 
@@ -83,13 +83,16 @@ class ChatViewModel(private val nickname: Int) : ViewModel() {
     private fun processOnTyping(data: JSONObject) {
         //todo aqui hacer chequeo de los Ids a ver si coinciden
         val dataTyping = JsonManager.processTyping(data)
-        typingLiveData.postValue(dataTyping!!.typing)
+        //if (dataTyping!!.nickname == flechPreferences.idUser) {
+            typingLiveData.postValue(dataTyping!!.typing)
+        //}
     }
 
     private fun processOnNewMessage(data: JSONObject) {
         //todo estudiar el evlis operator ese
         val message = JsonManager.processNewMessage(data) ?: return
-        messagesLiveData.value!!.add(message)
+        val newList = MutableList(1){message}
+        messagesLiveData.postValue(newList)
     }
 
     override fun onCleared() {
@@ -97,6 +100,6 @@ class ChatViewModel(private val nickname: Int) : ViewModel() {
         cancelRequest()
     }
 
-    fun cancelRequest() = coroutineContext.cancel()
+    private fun cancelRequest() = coroutineContext.cancel()
 
 }

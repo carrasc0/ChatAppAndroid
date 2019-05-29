@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 
@@ -16,15 +17,12 @@ import com.example.mvvmtest.dagger.component.ApiController
 import com.example.mvvmtest.manager.FlechPreferences
 import com.example.mvvmtest.model.Message
 import com.example.mvvmtest.model.Typing
-import com.example.mvvmtest.util.Constant
+import com.example.mvvmtest.util.*
 import com.example.mvvmtest.viewmodel.ChatViewModel
 import com.github.nkzawa.socketio.client.Socket
 
 import javax.inject.Inject
 
-import com.example.mvvmtest.util.ChatViewModelFactory
-import com.example.mvvmtest.util.afterTextChanged
-import com.example.mvvmtest.util.onFocusChange
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.content_chat.*
 
@@ -32,6 +30,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var chatViewModel: ChatViewModel
     private lateinit var chatAdapter: ChatAdapter
+    private lateinit var layoutManager: LinearLayoutManager
     private var nickname: Int? = null
 
     @Inject
@@ -73,18 +72,28 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun checkChatStatus() {
         if (isConnected) {
-            toolbar.subtitle = "Connected"
+            toolbar.title = "Connected"
         } else {
-            toolbar.subtitle = "Disconnected"
+            toolbar.title = "Disconnected"
         }
     }
 
     private fun initAdapter() {
-        chatRecyclerView.layoutManager = LinearLayoutManager(this@ChatActivity)
+        layoutManager = LinearLayoutManager(this@ChatActivity)
+        layoutManager.stackFromEnd = true
+        chatRecyclerView.layoutManager = layoutManager
         val mutableList: MutableList<Message> = arrayListOf()
         chatAdapter = ChatAdapter(mutableList)
         chatRecyclerView.adapter = chatAdapter
 
+        chatRecyclerView.onLayoutChange {
+            if (it) scrollToBottom()
+        }
+
+    }
+
+    private fun scrollToBottom() {
+        layoutManager.smoothScrollToPosition(chatRecyclerView, null, chatAdapter.itemCount)
     }
 
     private fun initViewModel() {
@@ -95,27 +104,24 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
         chatViewModel.getMessages()
         chatViewModel.messagesLiveData.observe(this, Observer {
+            Log.d(Constant.TAG, "entro en observer " + it.toString())
             chatAdapter.addMessages(it)
         })
 
         chatViewModel.typingLiveData.observe(this, Observer {
-            performTyping(it.value)
+            performTyping(it)
         })
 
     }
 
     private fun performTyping(typing: Boolean) {
-        //todo manejar el typingLiveData (quitarlo o ponerlo)
+        if (typing) chatLinearLayout.visibility = View.VISIBLE else chatLinearLayout.visibility = View.GONE
     }
 
     private fun initSocket() {
         socket.connect()
-        if (socket.connected()) {
-            socket.on(Constant.SocketEvent.NEW_MESSAGE, chatViewModel.onNewMessageListener)
-            socket.on(Constant.SocketEvent.TYPING, chatViewModel.onTypingListener)
-        } else {
-            Toast.makeText(baseContext, "No se pudo conectar", Toast.LENGTH_SHORT).show()
-        }
+        socket.on(Constant.SocketEvent.NEW_MESSAGE, chatViewModel.onNewMessageListener)
+        socket.on(Constant.SocketEvent.TYPING, chatViewModel.onTypingListener)
 
     }
 

@@ -14,7 +14,7 @@
         android:background="@color/lightYellow"
         app:layout_constraintTop_toTopOf="@id/facebookButton" />
 
-    <com.facebook.login.widget.LoginButton
+    <Button
         android:id="@+id/googleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

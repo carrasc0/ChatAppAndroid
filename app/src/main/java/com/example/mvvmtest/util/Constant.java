@@ -2,13 +2,14 @@ package com.example.mvvmtest.util;
 
 public class Constant {
 
-    public static final int SENDER = 1;
-    public static final int NICKNAME = 2;
+    public static final int SENDER = 2;
+    public static final int NICKNAME = 1;
+    public static final String TAG = "MVVM";
 
     public class SocketEvent {
 
         public static final String NEW_MESSAGE = "newMessage";
-        public static final String TYPING = "typingLiveData";
+        public static final String TYPING = "typing";
 
     }
 

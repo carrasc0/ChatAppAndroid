@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -44,4 +45,8 @@ fun EditText.onFocusChange(focusChange: (Boolean) -> Unit) {
 
 }
 
-
+fun RecyclerView.onLayoutChange(layoutChange: (Boolean) -> Unit) {
+    this.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+        if (bottom < oldBottom) layoutChange.invoke(true)
+    }
+}

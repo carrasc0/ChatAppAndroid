@@ -1,5 +1,6 @@
 package com.example.mvvmtest.manager
 
+import android.util.Log
 import com.example.mvvmtest.model.Message
 import com.example.mvvmtest.model.Typing
 import com.example.mvvmtest.util.Constant
@@ -37,13 +38,10 @@ object JsonManager {
         val obj = JSONObject()
 
         try {
-            val params = JSONObject()
-            params.put("sender", sender)
-            params.put("nickname", nickname)
-            params.put("isTyping", isTyping)
 
-            obj.put(Constant.SocketKey.FN_KEY, Constant.SocketEvent.TYPING)
-            obj.put(Constant.SocketKey.PARAMS_KEY, params)
+            obj.put("sender", sender)
+            obj.put("nickname", nickname)
+            obj.put("typing", isTyping)
 
             return obj
 
@@ -56,6 +54,7 @@ object JsonManager {
 
     fun processNewMessage(data: JSONObject): Message? {
         try {
+            Log.d(Constant.TAG, "message value: " + data.toString())
             val sender = data.getInt("sender")
             val nickname = data.getInt("nickname")
             val body = data.getString("body")
@@ -70,9 +69,10 @@ object JsonManager {
 
     fun processTyping(data: JSONObject): Typing? {
         try {
+            Log.d(Constant.TAG, "typing value: " + data.toString())
             val sender = data.getInt("sender")
             val nickname = data.getInt("nickname")
-            val typing = data.getBoolean("typingLiveData")
+            val typing = data.getBoolean("typing")
 
             return Typing(sender, nickname, typing)
         } catch (e: JSONException) {

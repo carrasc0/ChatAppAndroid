@@ -17,7 +17,7 @@ import com.example.mvvmtest.util.DiscoverAction
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.user_view_discover_fragment.*
 
-class UserViewDiscoverFragment : Fragment() {
+class UserViewDiscoverFragment : Fragment(), View.OnClickListener {
 
     private var user: DiscoverUser? = null
     private var onActionListener: OnUserViewDiscoverFragmentActionListener? = null
@@ -36,17 +36,16 @@ class UserViewDiscoverFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         user = arguments!!.getParcelable("user")
-        Log.d("GBC", user!!.toString())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.user_view_discover_fragment, container, false)
-        return view
+        return inflater.inflate(R.layout.user_view_discover_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
         processUser()
     }
 
@@ -62,6 +61,12 @@ class UserViewDiscoverFragment : Fragment() {
     private fun processUser() {
         processImages()
         processText()
+    }
+
+    private fun initListeners() {
+        btnILoveIt.setOnClickListener(this)
+        btnDislike.setOnClickListener(this)
+        btnlike.setOnClickListener(this)
     }
 
     private fun processImages() {
@@ -99,21 +104,17 @@ class UserViewDiscoverFragment : Fragment() {
         smokeDU.text = "Sometimes"
     }
 
-    @OnClick(R.id.btnILoveIt)
-    internal fun IloveItClicked() {
-        onActionListener!!.onUserAction(user!!.idUser, DiscoverAction.I_LOVE_IT)
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btnILoveIt ->
+                onActionListener!!.onUserAction(user!!.idUser, DiscoverAction.I_LOVE_IT)
+            R.id.btnDislike ->
+                onActionListener!!.onUserAction(user!!.idUser, DiscoverAction.DISLIKE)
+            R.id.btnlike ->
+                onActionListener!!.onUserAction(user!!.idUser, DiscoverAction.LIKE)
+            else -> {
+            }
+        }
     }
-
-    @OnClick(R.id.btnDislike)
-    internal fun DislikeClicked() {
-        Log.d("GBC", "dislike clicked")
-        onActionListener!!.onUserAction(user!!.idUser, DiscoverAction.DISLIKE)
-    }
-
-    @OnClick(R.id.btnlike)
-    internal fun LikeClicked() {
-        onActionListener!!.onUserAction(user!!.idUser, DiscoverAction.LIKE)
-    }
-
 
 }
