@@ -1,34 +1,30 @@
 package com.example.mvvmtest.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
+import android.widget.Toast
 
 import com.example.mvvmtest.R
 import com.example.mvvmtest.adapter.ChatAdapter
 import com.example.mvvmtest.dagger.component.ApiController
 import com.example.mvvmtest.manager.FlechPreferences
 import com.example.mvvmtest.model.Message
+import com.example.mvvmtest.model.Typing
 import com.example.mvvmtest.util.Constant
 import com.example.mvvmtest.viewmodel.ChatViewModel
 import com.github.nkzawa.socketio.client.Socket
 
 import javax.inject.Inject
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.example.mvvmtest.util.ChatViewModelFactory
+import com.example.mvvmtest.util.afterTextChanged
+import com.example.mvvmtest.util.onFocusChange
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.content_chat.*
 
@@ -42,7 +38,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var socket: Socket
 
     @Inject
-    lateinit var sharedFlechPreferences: FlechPreferences
+    lateinit var flechPreferences: FlechPreferences
 
     val isConnected: Boolean
         get() = socket.connected()
@@ -58,6 +54,17 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         initViews()
         initSocket()
         checkChatStatus()
+        setupEditTextBehavior()
+    }
+
+
+    private fun setupEditTextBehavior() {
+        sendEditText.afterTextChanged {
+            sendTyping(true)
+        }
+        sendEditText.onFocusChange {
+            if (!it) sendTyping(false)
+        }
     }
 
     private fun initViews() {
@@ -66,9 +73,9 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun checkChatStatus() {
         if (isConnected) {
-            toolbar!!.subtitle = "Connected"
+            toolbar.subtitle = "Connected"
         } else {
-            toolbar!!.subtitle = "Disconnected"
+            toolbar.subtitle = "Disconnected"
         }
     }
 
@@ -82,31 +89,48 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initViewModel() {
 
-        val viewModelFactory = ChatViewModelFactory()
+        val viewModelFactory = ChatViewModelFactory(nickname!!)
         chatViewModel = ViewModelProviders.of(this@ChatActivity, viewModelFactory)
                 .get(ChatViewModel::class.java)
 
-        chatViewModel.getMessages(nickname!!)
+        chatViewModel.getMessages()
         chatViewModel.messagesLiveData.observe(this, Observer {
-            Log.d("GBC", "entro en el observer")
             chatAdapter.addMessages(it)
+        })
+
+        chatViewModel.typingLiveData.observe(this, Observer {
+            performTyping(it.value)
         })
 
     }
 
+    private fun performTyping(typing: Boolean) {
+        //todo manejar el typingLiveData (quitarlo o ponerlo)
+    }
+
     private fun initSocket() {
         socket.connect()
-        socket.on(Constant.SocketEvent.NEW_MESSAGE, chatViewModel.onNewMessageListener)
-        //socket.on(Constant.SocketEvent.TYPING, chatViewModel.onTyping);
+        if (socket.connected()) {
+            socket.on(Constant.SocketEvent.NEW_MESSAGE, chatViewModel.onNewMessageListener)
+            socket.on(Constant.SocketEvent.TYPING, chatViewModel.onTypingListener)
+        } else {
+            Toast.makeText(baseContext, "No se pudo conectar", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun sendMessage() {
+        sendTyping(false)
         val text = sendEditText!!.text.toString().trim { it <= ' ' }
         if (TextUtils.isEmpty(text)) {
             return
         }
         chatViewModel.sendMessage(socket, Message(Constant.SENDER, nickname!!, text))
         sendEditText.setText("")
+    }
+
+    private fun sendTyping(typing: Boolean) {
+        chatViewModel.sendTyping(socket, Typing(flechPreferences.idUser, nickname!!, typing))
     }
 
     private fun disconnect() {
@@ -124,6 +148,11 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disconnect()
     }
 
 }

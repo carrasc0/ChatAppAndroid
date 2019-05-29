@@ -1,12 +1,7 @@
 package com.example.mvvmtest.adapter
 
-import android.content.Context
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.mvvmtest.R
@@ -14,12 +9,9 @@ import com.example.mvvmtest.dagger.component.ApiController
 import com.example.mvvmtest.manager.FlechPreferences
 import com.example.mvvmtest.model.Message
 import com.example.mvvmtest.util.Constant
-import com.mikhaellopez.circularimageview.CircularImageView
 
 import javax.inject.Inject
 
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.example.mvvmtest.util.inflate
 import kotlinx.android.synthetic.main.design_chat_nickname.view.*
 import kotlinx.android.synthetic.main.design_chat_sender.view.*
@@ -34,7 +26,6 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
 
     init {
         ApiController.getAppComponent().inject(this)
-        Log.d("GBC adapter", items.toString())
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -60,9 +51,7 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     fun addMessages(otherItems: MutableList<Message>){
         this.items.addAll(otherItems)
@@ -76,7 +65,6 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
         }
 
         fun bind(message: Message) {
-            Log.d("GBC adapter 1", message.toString())
             itemView.textViewChatSender.text = message.body
         }
     }

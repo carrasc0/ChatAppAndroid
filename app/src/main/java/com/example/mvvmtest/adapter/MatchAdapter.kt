@@ -12,7 +12,9 @@ import kotlinx.android.synthetic.main.design_match.view.*
 
 class MatchAdapter(private var items: List<Match>) : RecyclerView.Adapter<MatchAdapter.MatchVH>() {
 
+    init {
 
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchVH {
         val inflatedView = parent.inflate(R.layout.design_match, false)
@@ -45,7 +47,7 @@ class MatchAdapter(private var items: List<Match>) : RecyclerView.Adapter<MatchA
         }
 
         override fun onClick(v: View?) {
-            Toast.makeText(itemView.context, "Pressed: ${v.toString()}", Toast.LENGTH_SHORT)
+            Toast.makeText(itemView.context, "Pressed: ${v.toString()}", Toast.LENGTH_SHORT).show()
         }
 
     }

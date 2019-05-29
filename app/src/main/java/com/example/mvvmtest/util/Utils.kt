@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mvvmtest.viewmodel.ChatViewModel
 
 @Suppress("UNCHECKED_CAST")
-class ChatViewModelFactory : ViewModelProvider.NewInstanceFactory() {
+class ChatViewModelFactory(private val nickname: Int) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ChatViewModel() as T
+        return ChatViewModel(nickname) as T
     }
 }
