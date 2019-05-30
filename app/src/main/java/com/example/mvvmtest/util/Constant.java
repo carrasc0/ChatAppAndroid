@@ -2,8 +2,8 @@ package com.example.mvvmtest.util;
 
 public class Constant {
 
-    public static final int SENDER = 2;
-    public static final int NICKNAME = 1;
+    public static final int SENDER = 1;
+    public static final int NICKNAME = 2;
     public static final String TAG = "MVVM";
 
     public class SocketEvent {
@@ -22,9 +22,7 @@ public class Constant {
     }
 
     public static final class Others {
-
         public static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
-
     }
 
 

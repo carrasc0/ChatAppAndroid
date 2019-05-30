@@ -2,8 +2,6 @@ package com.example.mvvmtest.viewmodel
 
 
 import android.util.Log
-import android.util.MutableBoolean
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvmtest.dagger.component.ApiController
@@ -77,22 +75,33 @@ class ChatViewModel(private val nickname: Int) : ViewModel() {
     }
 
     val onTypingListener: Emitter.Listener = Emitter.Listener { args ->
+        Log.d(Constant.TAG, "onTypingEvent ${args[0]}")
         processOnTyping(args[0] as JSONObject)
     }
 
     private fun processOnTyping(data: JSONObject) {
-        //todo aqui hacer chequeo de los Ids a ver si coinciden
         val dataTyping = JsonManager.processTyping(data)
-        //if (dataTyping!!.nickname == flechPreferences.idUser) {
-            typingLiveData.postValue(dataTyping!!.typing)
-        //}
+        if (!validateTyping(dataTyping as Typing)) return else typingLiveData.postValue(dataTyping.typing)
     }
 
     private fun processOnNewMessage(data: JSONObject) {
-        //todo estudiar el evlis operator ese
         val message = JsonManager.processNewMessage(data) ?: return
-        val newList = MutableList(1){message}
-        messagesLiveData.postValue(newList)
+        if (!validateNewMessage(message)) {
+            return
+        } else {
+            val newList = MutableList(1) { message }
+            messagesLiveData.postValue(newList)
+        }
+
+    }
+
+    private fun validateTyping(dataTyping: Typing): Boolean {
+        return (Constant.SENDER == dataTyping.nickname) && (Constant.NICKNAME == dataTyping.sender)
+    }
+
+    private fun validateNewMessage(message: Message): Boolean {
+        return ((Constant.SENDER == message.nickname) && (Constant.NICKNAME == message.sender) ||
+                Constant.SENDER == message.sender && Constant.NICKNAME == message.nickname)
     }
 
     override fun onCleared() {

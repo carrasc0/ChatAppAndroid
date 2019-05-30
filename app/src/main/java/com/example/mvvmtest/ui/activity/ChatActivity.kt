@@ -47,7 +47,8 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         ApiController.getAppComponent().inject(this)
-        nickname = intent.getIntExtra("nickname", Constant.NICKNAME)
+        //nickname = intent.getIntExtra("nickname", Constant.NICKNAME)
+        nickname = Constant.NICKNAME
         initViewModel()
         initAdapter()
         initViews()
@@ -59,11 +60,12 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setupEditTextBehavior() {
         sendEditText.afterTextChanged {
-            sendTyping(true)
+            if (it.length == 0) sendTyping(false) else sendTyping(true)
+
         }
-        sendEditText.onFocusChange {
-            if (!it) sendTyping(false)
-        }
+        //sendEditText.onFocusChange {
+        //    if (!it) sendTyping(false)
+        //}
     }
 
     private fun initViews() {
@@ -115,6 +117,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun performTyping(typing: Boolean) {
+        Log.d(Constant.TAG, "entro en performTyping $typing")
         if (typing) chatLinearLayout.visibility = View.VISIBLE else chatLinearLayout.visibility = View.GONE
     }
 
@@ -136,7 +139,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun sendTyping(typing: Boolean) {
-        chatViewModel.sendTyping(socket, Typing(flechPreferences.idUser, nickname!!, typing))
+        chatViewModel.sendTyping(socket, Typing(Constant.SENDER, Constant.NICKNAME, typing))
     }
 
     private fun disconnect() {

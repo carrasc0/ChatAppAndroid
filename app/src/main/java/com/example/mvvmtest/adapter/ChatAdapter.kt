@@ -22,7 +22,7 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
     private val TYPE_NICKNAME = 2
 
     @Inject
-    lateinit var sharedFlechPreferences: FlechPreferences
+    lateinit var flechPreferences: FlechPreferences
 
     init {
         ApiController.getAppComponent().inject(this)

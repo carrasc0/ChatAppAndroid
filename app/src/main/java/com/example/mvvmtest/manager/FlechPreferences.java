@@ -26,7 +26,7 @@ public class FlechPreferences {
                 .apply();
     }
 
-    public int getIdUser() {
-        return sharedPreferences.getInt(KEY_ID_USER, 2);
-    }
+    //public int getIdUser() {
+     //   return sharedPreferences.getInt(KEY_ID_USER, 2);
+    //}
 }

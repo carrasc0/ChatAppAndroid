@@ -6,6 +6,7 @@ import com.example.mvvmtest.manager.FlechPreferences
 import com.example.mvvmtest.model.Message
 import com.example.mvvmtest.model.Request.GetMessagesRequest
 import com.example.mvvmtest.network.ChatInterface
+import com.example.mvvmtest.util.Constant
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class ChatRepository(private val chatInterface: ChatInterface) : BaseRepository(
 
     suspend fun getMessages(nickname: Int): MutableList<Message>? {
         return safeApiCall(
-                call = { chatInterface.getMessages(GetMessagesRequest(flechPreferences.idUser, nickname)).await() },
+                call = { chatInterface.getMessages(GetMessagesRequest(Constant.SENDER, Constant.NICKNAME)).await() },
                 error = "Error fetching messages"
         )?.messagess?.toMutableList()
     }

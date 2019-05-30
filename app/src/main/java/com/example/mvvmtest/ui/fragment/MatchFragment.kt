@@ -34,18 +34,22 @@ class MatchFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(match: Match): MatchFragment {
+        /*fun newInstance(match: Match): MatchFragment {
             val fragment = MatchFragment()
             val args = Bundle()
             args.putParcelable("match", match)
             fragment.arguments = args
+            return fragment
+        }*/
+        fun newInstance(): MatchFragment {
+            val fragment = MatchFragment()
             return fragment
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        match = arguments!!.getParcelable("match")
+        //match = arguments!!.getParcelable("match")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,17 +60,13 @@ class MatchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MatchViewModel::class.java)
-
+        initViewModel()
         initRecyclerView()
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewModel()
-        initRecyclerView()
+
     }
 
     private fun initViewModel() {
@@ -81,7 +81,7 @@ class MatchFragment : Fragment() {
 
     private fun initRecyclerView() {
         matchRecyclerView.layoutManager = LinearLayoutManager(activity)
-       // adapter = MatchAdapter(viewModel.matchLiveData.value)
+        adapter = MatchAdapter(viewModel.matchLiveData!!.value!!)
         matchRecyclerView.adapter = adapter
     }
 

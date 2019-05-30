@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.example.mvvmtest.R
+import com.example.mvvmtest.model.Match
 import com.example.mvvmtest.ui.fragment.DiscoverFragment
 import com.example.mvvmtest.ui.fragment.MatchFragment
 import com.example.mvvmtest.ui.fragment.ProfileFragment
