@@ -13,8 +13,15 @@ class ChatViewModelFactory(private val nickname: Int) : ViewModelProvider.NewIns
 }
 
 @Suppress("UNCHECKED_CAST")
-class MatchViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+class MatchViewModelFactory : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return MatchViewModel() as T
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+class DiscoverViewModelFactory : ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return DiscoverViewModelFactory() as T
     }
 }
