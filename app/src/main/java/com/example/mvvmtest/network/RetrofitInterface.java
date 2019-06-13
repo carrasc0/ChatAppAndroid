@@ -1,12 +1,10 @@
 package com.example.mvvmtest.network;
 
-import com.example.mvvmtest.model.Request.GetMessagesRequest;
 import com.example.mvvmtest.model.Response.BaseResponse;
 import com.example.mvvmtest.model.Response.DiscoverUsersResponse;
 
 import kotlinx.coroutines.Deferred;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -21,10 +19,10 @@ public interface RetrofitInterface {
     @GET("/getUserDataEditProfile/{id}")
     Call<BaseResponse> getUserDataEditProfile(@Path("id") int id);
 
+    @GET("/getDiscoverUsers/{id}")
+    Call<DiscoverUsersResponse> getDiscoverUsers(@Path("id") int id);
 
-    @Headers("Content-Type: application/json")
-    @POST("/getDiscoverUsers")
-    Call<DiscoverUsersResponse> getDiscoverUsers(@Body GetMessagesRequest request);
+
 
     @Headers("Content-Type: application/json")
     @POST("/userAction")
@@ -33,8 +31,6 @@ public interface RetrofitInterface {
     @Headers("Content-Type: application/json")
     @PUT("/setCoordinates")
     Deferred<BaseResponse> setCoordinates();
-
-
 
 
 }
