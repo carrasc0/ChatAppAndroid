@@ -26,6 +26,6 @@ class ChatRepository(private val chatInterface: ChatInterface) : BaseRepository(
         return safeApiCall(
                 call = { chatInterface.getMessages(GetMessagesRequest(Constant.SENDER, Constant.NICKNAME)).await() },
                 error = "Error fetching messages"
-        )?.messagess?.toMutableList()
+        )?.messages?.toMutableList()
     }
 }

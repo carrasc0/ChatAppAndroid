@@ -17,14 +17,11 @@ import com.example.mvvmtest.R
 import com.example.mvvmtest.dagger.component.ApiController
 import com.example.mvvmtest.interfaces.OnUserViewDiscoverFragmentActionListener
 import com.example.mvvmtest.model.DiscoverUser
-import com.example.mvvmtest.util.DiscoverAction
-import com.example.mvvmtest.util.StateFragment
 import com.example.mvvmtest.viewmodel.DiscoverViewModel
 
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.example.mvvmtest.util.DiscoverViewModelFactory
-import com.example.mvvmtest.util.MatchViewModelFactory
+import com.example.mvvmtest.util.*
 import com.example.mvvmtest.viewmodel.MatchViewModel
 
 class DiscoverFragment : Fragment(), OnUserViewDiscoverFragmentActionListener {
@@ -56,9 +53,9 @@ class DiscoverFragment : Fragment(), OnUserViewDiscoverFragmentActionListener {
     }
 
     private fun initViewModel() {
-        val viewModelFactory = DiscoverViewModelFactory()
-        viewModel = ViewModelProviders.of(this.requireActivity(), viewModelFactory)
-                .get(DiscoverViewModel::class.java)
+        val viewModelFactory = ViewModelFactory()
+        viewModel = ViewModelProviders.of(this.requireActivity(), viewModelFactory).get(DiscoverViewModel::class.java)
+
         viewModel.getDiscoverUser()
         viewModel.users.observe(this, Observer { discoverUsers ->
             Log.d("GBC", "entro aqui initview model discover fragment")

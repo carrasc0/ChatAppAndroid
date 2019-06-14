@@ -1,9 +1,17 @@
 package com.example.mvvmtest.model
 
-data class Message(
-        val id: Int,
-        val created_at: String,
-        val sender: Int,
-        val nickname: Int,
-        val body: String,
-        val readed: Int)
+import com.example.mvvmtest.util.Constant
+
+data class Message(val sender: Int, val nickname: Int, val body: String) {
+
+    constructor(id: Int,
+                created_at: String,
+                sender: Int,
+                nickname: Int,
+                body: String,
+                readed: Int) : this(sender, nickname, body)
+
+    fun isSender(id: Int): Boolean {
+        return id == Constant.SENDER
+    }
+}

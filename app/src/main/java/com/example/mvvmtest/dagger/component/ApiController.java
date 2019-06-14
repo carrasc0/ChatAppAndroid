@@ -5,6 +5,8 @@ import android.app.Application;
 
 import com.example.mvvmtest.dagger.module.AppModule;
 import com.example.mvvmtest.dagger.module.NetworkModule;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 public class ApiController extends Application {
 
@@ -14,6 +16,9 @@ public class ApiController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))

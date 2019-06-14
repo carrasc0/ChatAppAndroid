@@ -23,12 +23,7 @@ class MainActivityRepository {
     }
 
     fun setCoordinates(latitude: String, longitude: String) {
-        retrofitCall.setCoordinates(latitude, longitude, setCoordinatesCallback)
+        //retrofitCall.setCoordinates(latitude, longitude, setCoordinatesCallback)
     }
-
-    //suspend fun <T : Any> setCoordinates(call: suspend () -> Response<T>, errorMessage: String): T? {
-    //    val result : ResultResponse<T>
-    //}
-
 
 }

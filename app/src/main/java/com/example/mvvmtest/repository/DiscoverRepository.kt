@@ -42,7 +42,7 @@ class DiscoverRepository {
     private val callbackGetMessages = object : Callback<DiscoverUsersResponse> {
         override fun onResponse(call: Call<DiscoverUsersResponse>, response: Response<DiscoverUsersResponse>) {
             if (response.isSuccessful) {
-                dataSet.addAll(response.body()!!.discoverUsers)
+                //dataSet.addAll(response.body()!!.discoverUser)
             } else {
                 Logger.e("Error get users", response.errorBody())
             }

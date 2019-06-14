@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/contentChatNickname"
     android:layout_width="match_parent"
@@ -7,33 +7,29 @@
 
     <TextView
         android:id="@+id/textViewChatNickname"
-        android:layout_width="293dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@+id/circleImageViewChatSender"
         android:background="@drawable/shape_chat_nickname"
         android:gravity="start"
         android:padding="12dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/circleImageViewChatSender"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Hola que tal como estas"
+        android:textColor="@android:color/black" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/circleImageViewChatSender"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignBottom="@+id/textViewChatNickname"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image2"
         app:civ_border="true"
         app:civ_border_color="@android:color/black"
-        app:civ_border_width="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:civ_border_width="1dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

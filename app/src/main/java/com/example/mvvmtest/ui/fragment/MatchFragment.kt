@@ -6,24 +6,17 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 
 import com.example.mvvmtest.R
 import com.example.mvvmtest.adapter.MatchAdapter
 import com.example.mvvmtest.model.Match
+import com.example.mvvmtest.util.ViewModelFactory
 import com.example.mvvmtest.viewmodel.MatchViewModel
-
-import butterknife.BindView
-import butterknife.ButterKnife
-import com.example.mvvmtest.util.ChatViewModelFactory
-import com.example.mvvmtest.util.MatchViewModelFactory
-import com.example.mvvmtest.viewmodel.ChatViewModel
 import kotlinx.android.synthetic.main.messages_fragment.*
 
 class MatchFragment : Fragment() {
@@ -70,7 +63,7 @@ class MatchFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val viewModelFactory = MatchViewModelFactory()
+        val viewModelFactory = ViewModelFactory()
         viewModel = ViewModelProviders.of(this.requireActivity(), viewModelFactory)
                 .get(MatchViewModel::class.java)
         viewModel.getMatches()

@@ -5,6 +5,7 @@ import com.example.mvvmtest.model.Request.GetMessagesRequest
 import com.example.mvvmtest.model.Response.BaseResponse
 import com.example.mvvmtest.model.Response.DiscoverUsersResponse
 import com.example.mvvmtest.model.Response.GetMessagesResponse
+import com.example.mvvmtest.util.Constant
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,7 +18,7 @@ class RetrofitCall(private val retrofitInterface: RetrofitInterface) {
 
     fun getDiscoverUsers(sender: Int, nickname: Int, callback: Callback<DiscoverUsersResponse>) {
         val getMessagesRequest = GetMessagesRequest(sender, nickname)
-        val call = retrofitInterface.getDiscoverUsers(getMessagesRequest)
+        val call = retrofitInterface.getDiscoverUsers(Constant.SENDER)
         call.enqueue(callback)
     }
 
