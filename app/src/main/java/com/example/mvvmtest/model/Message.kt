@@ -11,7 +11,7 @@ data class Message(val sender: Int, val nickname: Int, val body: String) {
                 body: String,
                 readed: Int) : this(sender, nickname, body)
 
-    fun isSender(id: Int): Boolean {
-        return id == Constant.SENDER
+    fun isSender(): Boolean {
+        return sender == Constant.SENDER
     }
 }

@@ -23,8 +23,8 @@ class Constant {
 
     companion object {
 
-        const val SENDER = 1
-        const val NICKNAME = 2
+        const val SENDER = 2
+        const val NICKNAME = 1
         const val TAG = "MVVM"
     }
 

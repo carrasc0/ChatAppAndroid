@@ -29,7 +29,7 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (items[position].isSender(Constant.SENDER)) TYPE_SENDER else TYPE_NICKNAME
+        return if (items[position].isSender()) TYPE_SENDER else TYPE_NICKNAME
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -53,7 +53,7 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
 
     override fun getItemCount(): Int = items.size
 
-    fun addMessages(otherItems: MutableList<Message>){
+    fun addMessages(otherItems: MutableList<Message>) {
         this.items.addAll(otherItems)
         notifyDataSetChanged()
     }
@@ -77,7 +77,21 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
 
         fun bind(message: Message) {
             itemView.textViewChatNickname.text = message.body
+            if (needsImage(message)) itemView.circleImageViewChatSender.visibility = View.VISIBLE
+            else itemView.circleImageViewChatSender.visibility = View.INVISIBLE
         }
+    }
+
+    private fun needsImage(message: Message): Boolean {
+        for (position in items.indices) {
+            if ((items[position] == message) && (position + 1 == items.size)) {
+                return true
+            }
+            if ((items[position] == message) && (items[position + 1].isSender())) {
+                return true
+            }
+        }
+        return false
     }
 
 }

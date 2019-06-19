@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 
 import com.example.mvvmtest.R
 import com.example.mvvmtest.adapter.ChatAdapter
@@ -23,7 +22,6 @@ import com.github.nkzawa.socketio.client.Socket
 
 import javax.inject.Inject
 
-import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.content_chat.*
 
 class ChatActivity : AppCompatActivity(), View.OnClickListener {
@@ -39,10 +37,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
     lateinit var flechPreferences: FlechPreferences
 
-    val isConnected: Boolean
-        get() = socket.connected()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -53,31 +47,18 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         initAdapter()
         initViews()
         initSocket()
-        checkChatStatus()
         setupEditTextBehavior()
     }
 
 
     private fun setupEditTextBehavior() {
         sendEditText.afterTextChanged {
-            if (it.length == 0) sendTyping(false) else sendTyping(true)
-
+            if (it.isEmpty()) sendTyping(false) else sendTyping(true)
         }
-        //sendEditText.onFocusChange {
-        //    if (!it) sendTyping(false)
-        //}
     }
 
     private fun initViews() {
         sendButton.setOnClickListener(this)
-    }
-
-    private fun checkChatStatus() {
-        if (isConnected) {
-            toolbar.title = "Connected"
-        } else {
-            toolbar.title = "Disconnected"
-        }
     }
 
     private fun initAdapter() {
@@ -108,6 +89,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         chatViewModel.messagesLiveData.observe(this, Observer {
             Log.d(Constant.TAG, "entro en observer " + it.toString())
             chatAdapter.addMessages(it)
+            scrollToBottom()
         })
 
         chatViewModel.typingLiveData.observe(this, Observer {

@@ -2,6 +2,8 @@ package com.example.mvvmtest.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvmtest.viewmodel.ChatViewModel
 import com.example.mvvmtest.viewmodel.MatchViewModel
 
@@ -12,23 +14,17 @@ class ChatViewModelFactory(private val nickname: Int) : ViewModelProvider.NewIns
     }
 }
 
-/*@Suppress("UNCHECKED_CAST")
-class MatchViewModelFactory : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MatchViewModel() as T
-    }
-}
+class ScrollToTopDataObserver(val layoutManager: LinearLayoutManager,
+                              val recyclerView: RecyclerView)
+    : RecyclerView.AdapterDataObserver() {
+    override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+        super.onItemRangeInserted(positionStart, itemCount)
+        val lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition()
 
-@Suppress("UNCHECKED_CAST")
-class DiscoverViewModelFactory : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return DiscoverViewModelFactory() as T
-    }
-}*/
-
-@Suppress("UNCHECKED_CAST")
-class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ViewModelFactory() as T
+        // If the recycler view is initially being loaded or the user is at the bottom of the
+        // list, scroll to the bottom of the list to show the newly added message.
+        if (lastVisiblePosition == -1 || positionStart >= itemCount - 1 && lastVisiblePosition == positionStart - 1) {
+            recyclerView.scrollToPosition(positionStart)
+        }
     }
 }

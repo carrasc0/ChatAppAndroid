@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import com.example.mvvmtest.R
 import com.example.mvvmtest.adapter.MatchAdapter
 import com.example.mvvmtest.model.Match
-import com.example.mvvmtest.util.ViewModelFactory
 import com.example.mvvmtest.viewmodel.MatchViewModel
 import kotlinx.android.synthetic.main.messages_fragment.*
 
@@ -63,9 +62,8 @@ class MatchFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val viewModelFactory = ViewModelFactory()
-        viewModel = ViewModelProviders.of(this.requireActivity(), viewModelFactory)
-                .get(MatchViewModel::class.java)
+
+        viewModel = ViewModelProviders.of(this).get(MatchViewModel::class.java)
         viewModel.getMatches()
         viewModel.matchLiveData!!.observe(this, Observer { matches ->
             if (matches != null) adapter.notifyDataSetChanged() else Log.d("GBC", "items is null")

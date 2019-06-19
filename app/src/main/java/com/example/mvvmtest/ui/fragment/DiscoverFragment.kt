@@ -53,8 +53,7 @@ class DiscoverFragment : Fragment(), OnUserViewDiscoverFragmentActionListener {
     }
 
     private fun initViewModel() {
-        val viewModelFactory = ViewModelFactory()
-        viewModel = ViewModelProviders.of(this.requireActivity(), viewModelFactory).get(DiscoverViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
 
         viewModel.getDiscoverUser()
         viewModel.users.observe(this, Observer { discoverUsers ->
