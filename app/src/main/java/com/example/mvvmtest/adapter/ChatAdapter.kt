@@ -1,7 +1,9 @@
 package com.example.mvvmtest.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.mvvmtest.R
@@ -20,12 +22,21 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
 
     private val TYPE_SENDER = 1
     private val TYPE_NICKNAME = 2
+    var nicknameImg: Int = 0
+    var senderImg: Int = 0
 
     @Inject
     lateinit var flechPreferences: FlechPreferences
 
     init {
         ApiController.getAppComponent().inject(this)
+        if (Constant.SENDER == 1){
+            senderImg = R.drawable.me
+            nicknameImg = R.drawable.silvana
+        }else{
+            senderImg = R.drawable.silvana
+            nicknameImg = R.drawable.me
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -66,6 +77,9 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
 
         fun bind(message: Message) {
             itemView.textViewChatSender.text = message.body
+            itemView.circleImageViewChatSender.setImageDrawable(ContextCompat.getDrawable(itemView.context, senderImg))
+            if (senderNeedsImage(message)) itemView.circleImageViewChatSender.visibility = View.VISIBLE
+            else itemView.circleImageViewChatSender.visibility = View.INVISIBLE
         }
     }
 
@@ -77,17 +91,30 @@ class ChatAdapter(private val items: MutableList<Message>) : RecyclerView.Adapte
 
         fun bind(message: Message) {
             itemView.textViewChatNickname.text = message.body
-            if (needsImage(message)) itemView.circleImageViewChatSender.visibility = View.VISIBLE
-            else itemView.circleImageViewChatSender.visibility = View.INVISIBLE
+            itemView.circleImageViewChatNickname.setImageDrawable(ContextCompat.getDrawable(itemView.context, nicknameImg))
+            if (nicknameNeedsImage(message)) itemView.circleImageViewChatNickname.visibility = View.VISIBLE
+            else itemView.circleImageViewChatNickname.visibility = View.INVISIBLE
         }
     }
 
-    private fun needsImage(message: Message): Boolean {
+    private fun nicknameNeedsImage(message: Message): Boolean {
         for (position in items.indices) {
             if ((items[position] == message) && (position + 1 == items.size)) {
                 return true
             }
             if ((items[position] == message) && (items[position + 1].isSender())) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun senderNeedsImage(message: Message): Boolean {
+        for (position in items.indices) {
+            if ((items[position] == message) && (position + 1 == items.size)) {
+                return true
+            }
+            if ((items[position] == message) && !items[position + 1].isSender()){
                 return true
             }
         }

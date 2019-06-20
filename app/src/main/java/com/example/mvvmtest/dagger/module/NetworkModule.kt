@@ -33,10 +33,10 @@ class NetworkModule(private val chatUrl: String, private val apiUrl: String) {
     internal fun provideSocket(): Socket {
         try {
             val mOptions = IO.Options()
-            //mOptions.forceNew = true
-            //mOptions.query = "userID=" + Constant.SENDER
-            //return IO.socket(chatUrl, mOptions)
-            return IO.socket(chatUrl)
+            mOptions.forceNew = true
+            mOptions.query = "userID=" + Constant.SENDER
+            return IO.socket(chatUrl, mOptions)
+            //return IO.socket(chatUrl)
         } catch (e: URISyntaxException) {
             throw RuntimeException(e)
         }

@@ -7,29 +7,43 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activity.ChatActivity">
 
-    <Button
+    <ImageView
         android:id="@+id/sendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Send"
+        android:src="@drawable/ic_send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/sendEditText"
+        app:layout_constraintTop_toTopOf="@id/sendEditText" />
 
     <EditText
         android:id="@+id/sendEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@null"
         android:ems="10"
         android:hint="Escribe un mensaje"
         android:inputType="textPersonName"
+        android:paddingLeft="8dp"
+        android:paddingTop="12dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:singleLine="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sendButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -47,15 +61,31 @@
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/typingImageView"
             android:layout_width="40dp"
-            android:src="@drawable/image3"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/image2"
+            android:visibility="gone"
+            app:civ_border="true"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="1dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            app:lottie_autoPlay="true"
+            app:lottie_colorFilter="@color/colorPrimary"
+            app:lottie_fileName="typing.json"
+            app:lottie_loop="true" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
-            android:text="Escribiendo" />
+            android:text="Escribiendo"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -64,7 +94,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/chatLinearLayout"

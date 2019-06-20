@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.ActionBar
 
 import com.example.mvvmtest.R
 import com.example.mvvmtest.adapter.ChatAdapter
@@ -19,6 +20,7 @@ import com.example.mvvmtest.model.Typing
 import com.example.mvvmtest.util.*
 import com.example.mvvmtest.viewmodel.ChatViewModel
 import com.github.nkzawa.socketio.client.Socket
+import kotlinx.android.synthetic.main.activity_chat.*
 
 import javax.inject.Inject
 
@@ -43,13 +45,18 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         ApiController.getAppComponent().inject(this)
         //nickname = intent.getIntExtra("nickname", Constant.NICKNAME)
         nickname = Constant.NICKNAME
+        setupViews()
         initViewModel()
         initAdapter()
         initViews()
         initSocket()
         setupEditTextBehavior()
+
     }
 
+    fun setupViews() {
+
+    }
 
     private fun setupEditTextBehavior() {
         sendEditText.afterTextChanged {
@@ -87,9 +94,10 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
         chatViewModel.getMessages()
         chatViewModel.messagesLiveData.observe(this, Observer {
-            Log.d(Constant.TAG, "entro en observer " + it.toString())
-            chatAdapter.addMessages(it)
-            scrollToBottom()
+            if (it != null) {
+                chatAdapter.addMessages(it)
+                scrollToBottom()
+            }
         })
 
         chatViewModel.typingLiveData.observe(this, Observer {

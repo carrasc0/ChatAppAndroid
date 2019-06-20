@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/contentChatSender"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,23 +11,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_toLeftOf="@+id/checkedImageView"
+        android:layout_marginBottom="4dp"
+        android:layout_toLeftOf="@+id/circleImageViewChatSender"
         android:background="@drawable/shape_chat_sender"
         android:gravity="end"
         android:padding="12dp"
         android:text="Hola"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white" />
 
-    <ImageView
-        android:id="@+id/checkedImageView"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/circleImageViewChatSender"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignBottom="@id/textViewChatSender"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_done_all_black_24dp" />
+        app:civ_border="true"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="1dp" />
 
 </RelativeLayout>

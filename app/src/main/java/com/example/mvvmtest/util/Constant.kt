@@ -18,7 +18,9 @@ class Constant {
     }
 
     object Others {
+
         const val REQUEST_PERMISSIONS_REQUEST_CODE = 34
+
     }
 
     companion object {
@@ -26,6 +28,7 @@ class Constant {
         const val SENDER = 2
         const val NICKNAME = 1
         const val TAG = "MVVM"
+
     }
 
 
